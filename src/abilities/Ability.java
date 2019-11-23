@@ -3,23 +3,34 @@ package abilities;
 import heros.Hero;
 import heros.HeroType;
 import heros.Wizard;
+import map.Cell;
+import map.CellType;
 
 import java.util.Map;
 
 public abstract class Ability {
-    int dmg;
     float landAmplifier;
+    private int dmg;
     private int dmgAddPerLevel;
+    CellType preferredLand;
     Map<HeroType, Float> raceAmplifier;
 
     public Ability(int dmg, float landAmplifier, int dmgAddPerLevel,
-                        Map<HeroType, Float> raceAmplifier) {
+                   Map<HeroType, Float> raceAmplifier) {
         this.dmg = dmg;
         this.landAmplifier = landAmplifier;
         this.dmgAddPerLevel = dmgAddPerLevel;
         this.raceAmplifier = raceAmplifier;
     }
 
-    public abstract int applyAbility(Hero opponent, int lvl);
+    int baseDamage(Hero attacker) {
+        float damage = dmg + attacker.getLvl() * dmgAddPerLevel;
+        if (attacker.getLocationType() == preferredLand) {
+            damage *= landAmplifier;
+            damage = Math.round(damage);
+        }
+        return (int) damage;
+    }
 
+    public abstract int applyAbility(Hero attacker, Hero opponent);
 }

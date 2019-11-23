@@ -18,18 +18,20 @@ public class Drain extends Ability {
         percent /= 100;
         percentPerLvl = dmgAddPerLevel;
         percentPerLvl /= 100;
+        preferredLand = CellType.Desert;
     }
 
+
     @Override
-    public int applyAbility(Hero opponent, int lvl) {
+    public int applyAbility(Hero wizard, Hero opponent) {
         int baseHP, damage;
         float percent;
 
         baseHP = Math.min(Math.round(0.3f * opponent.getMAX_HP()), opponent.getHP());
-        percent = this.percent + percentPerLvl * lvl;
+        percent = this.percent + percentPerLvl * wizard.getLvl();
         percent *= raceAmplifier.get(opponent.getType());
 
-        if (opponent.getLocationType() == CellType.Desert) {
+        if (opponent.getLocationType() == preferredLand) {
             percent *= landAmplifier;
         }
 
