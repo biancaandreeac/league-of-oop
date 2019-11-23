@@ -1,20 +1,25 @@
 package abilities;
 
+import heros.Hero;
 import heros.HeroType;
 
 import java.util.Map;
 
 public class Execute extends Ability {
-    int percent;
-    int percentAddPerLevel;
-    int maxPercent;
+    private int percent;
+    private int percentAddPerLevel;
+    private int maxPercent;
 
     public Execute(int dmg, float landAmplifier, int dmgAddPerLevel,
-                   Map<HeroType, Float> raceAmplifier, int percent,
-                   int percentAddPerLevel, int maxPercent) {
+                   Map<HeroType, Float> raceAmplifier) {
         super(dmg, landAmplifier, dmgAddPerLevel, raceAmplifier);
-        this.percent = percent;
-        this.percentAddPerLevel = percentAddPerLevel;
-        this.maxPercent = maxPercent;
+        this.percent = 20;
+        this.percentAddPerLevel = 1;
+        this.maxPercent = 40;
+    }
+
+    @Override
+    public int applyAbility(Hero opponent, int lvl) {
+        return 0;
     }
 }

@@ -24,7 +24,7 @@ public class GameInputLoader {
             File file = new File(myInputPath);
             Scanner sc = new Scanner(file);
             map = createMap(sc);
-            heroes = createHeros(sc);
+            heroes = createHeroes(sc);
             rounds = createRounds(sc);
         } catch (Exception e1) {
             e1.printStackTrace();
@@ -56,7 +56,7 @@ public class GameInputLoader {
         return Map.getInstance(lines, cols, map);
     }
 
-    private ArrayList<Hero> createHeros(Scanner sc) {
+    private ArrayList<Hero> createHeroes(Scanner sc) {
         HeroesFactory.getInstance();
         ArrayList<Hero> players;
         int noOfPlayers;
@@ -68,7 +68,7 @@ public class GameInputLoader {
         for (int i = 0; i < noOfPlayers; ++i) {
             Hero h = HeroesFactory.getHeroByType(sc.findInLine(".").charAt(0));
             assert h != null;
-            h.changeLocation(sc.nextInt(), sc.nextInt());
+            h.initLocation(sc.nextInt(), sc.nextInt());
             players.add(h);
             sc.nextLine(); // go on next line
         }

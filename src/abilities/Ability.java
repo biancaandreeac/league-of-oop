@@ -1,13 +1,15 @@
 package abilities;
 
+import heros.Hero;
 import heros.HeroType;
+import heros.Wizard;
 
 import java.util.Map;
 
-public class Ability {
+public abstract class Ability {
     int dmg;
     float landAmplifier;
-    int dmgAddPerLevel;
+    private int dmgAddPerLevel;
     Map<HeroType, Float> raceAmplifier;
 
     public Ability(int dmg, float landAmplifier, int dmgAddPerLevel,
@@ -17,5 +19,7 @@ public class Ability {
         this.dmgAddPerLevel = dmgAddPerLevel;
         this.raceAmplifier = raceAmplifier;
     }
+
+    public abstract int applyAbility(Hero opponent, int lvl);
 
 }

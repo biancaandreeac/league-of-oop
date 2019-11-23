@@ -72,13 +72,17 @@ public final class HeroesFactory {
     public static Hero getHeroByType(final char type) {
         switch (type) {
             case 'P':
-                return heroByType.get(HeroType.Pyromancer);
+                return new Pyromancer(HitPoints.HP_PYROMANCER, HitPointsPerLevel.HP_LVL_PYROMANCER,
+                        HeroType.Pyromancer, Abilities.AB_PYROMANCER);
             case 'K':
-                return heroByType.get(HeroType.Knight);
+                return new Knight(HitPoints.HP_KNIGHT, HitPointsPerLevel.HP_LVL_KNIGHT,
+                        HeroType.Knight, Abilities.AB_KNIGHT);
             case 'W':
-                return heroByType.get(HeroType.Wizard);
+                return new Wizard(HitPoints.HP_WIZARD, HitPointsPerLevel.HP_LVL_WIZARD,
+                        HeroType.Wizard, Abilities.AB_WIZARD);
             case 'R':
-                return heroByType.get(HeroType.Rogue);
+                return new Rogue(HitPoints.HP_ROGUE, HitPointsPerLevel.HP_LVL_ROGUE,
+                        HeroType.Rogue, Abilities.AB_ROGUE);
         }
         return null;
     }

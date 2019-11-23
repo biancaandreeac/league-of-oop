@@ -1,6 +1,8 @@
 package abilities;
 
 import heros.HeroType;
+import map.Cell;
+import map.CellType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -76,7 +78,6 @@ public final class AbilityFactory {
         }
     }
 
-
     private static Map<AbilityType, Ability> abilityByType;
 
     private AbilityFactory() {
@@ -84,17 +85,17 @@ public final class AbilityFactory {
         initAbility();
     }
 
-    void initAbility() {
+    private void initAbility() {
         Ability ability;
         ability = new Fireblast(DMG.DMG_FIREBLAST, LangAmplifier.land_FIREBLAST,
                 LvlDMG.LvlDMG_FIREBLAST, RaceAmplifier.raceAmplifierFireblast);
         abilityByType.put(AbilityType.Fireblast, ability);
 
-        ability = new Fireblast(DMG.DMG_IGNITE, LangAmplifier.land_IGNITE,
+        ability = new Ignite(DMG.DMG_IGNITE, LangAmplifier.land_IGNITE,
                 LvlDMG.LvlDMG_IGNITE, RaceAmplifier.raceAmplifierIgnite);
         abilityByType.put(AbilityType.Ignite, ability);
 
-        ability = new Fireblast(DMG.DMG_EXECUTE, LangAmplifier.land_EXECUTE,
+        ability = new Execute(DMG.DMG_EXECUTE, LangAmplifier.land_EXECUTE,
                 LvlDMG.LvlDMG_EXECUTE, RaceAmplifier.raceAmplifierExecute);
         abilityByType.put(AbilityType.Execute, ability);
 
@@ -107,7 +108,7 @@ public final class AbilityFactory {
         abilityByType.put(AbilityType.Drain, ability);
 
         ability = new Deflect(DMG.DMG_DEFLECT, LangAmplifier.land_DEFLECT,
-                LvlDMG.LvlDMG_DEFLECT, RaceAmplifier.raceAmplifierDeflect, 70);
+                LvlDMG.LvlDMG_DEFLECT, RaceAmplifier.raceAmplifierDeflect);
         abilityByType.put(AbilityType.Deflect, ability);
 
         ability = new Backstab(DMG.DMG_BACKSTAB, LangAmplifier.land_BACKSTAB,
@@ -127,6 +128,9 @@ public final class AbilityFactory {
     }
 
     public static Ability getAbilityByType(AbilityType type) {
+        if (instance == null) {
+            instance = new AbilityFactory();
+        }
         return abilityByType.get(type);
     }
 }

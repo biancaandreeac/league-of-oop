@@ -10,7 +10,7 @@ public class GameInput {
     private ArrayList<Hero> heroes;
     private ArrayList<String> rounds;
 
-    GameInput(Map map, ArrayList<Hero> heroes, ArrayList<String> rounds) {
+    public GameInput(Map map, ArrayList<Hero> heroes, ArrayList<String> rounds) {
         this.map = map;
         this.heroes = heroes;
         this.rounds = rounds;
@@ -20,11 +20,11 @@ public class GameInput {
         return map;
     }
 
-    public ArrayList<Hero> getHeroes() {
+    ArrayList<Hero> getHeroes() {
         return heroes;
     }
 
-    public ArrayList<String> getRounds() {
+    ArrayList<String> getRounds() {
         return rounds;
     }
 }
