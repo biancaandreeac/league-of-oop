@@ -1,4 +1,4 @@
-package abilities;
+package heros.abilities;
 
 import heros.Hero;
 import heros.HeroType;
@@ -24,25 +24,23 @@ public class Deflect extends Ability {
     }
 
     @Override
-    public int applyAbility(Hero wizard, Hero opponent) {
-        // pls think!
+    public int applyAbility(final Hero wizard, final Hero opponent) {
+        // POATE SE POATE MAI BINE
         Ability ability;
+        float damage, amplifier;
+
         ability = AbilityFactory.getAbilityByType(opponent.getAbilities().get(0));
-        float damage1 = ability.baseDamage(opponent);
+        damage = ability.baseDamage(opponent);
         ability = AbilityFactory.getAbilityByType(opponent.getAbilities().get(1));
-        float damage2 = ability.baseDamage(opponent);
+        damage += ability.baseDamage(opponent);
 
-        float damage = Math.round(damage1) + Math.round(damage2);
+        amplifier = Math.min(maxPercent, percent + wizard.getLvl() * percentPerLvl);
+        amplifier *= raceAmplifier.get(opponent.getType());
 
-        float limit = percent + wizard.getLvl() * percentPerLvl;
-        limit = Math.min(limit, maxPercent);
-
-        limit *= raceAmplifier.get(opponent.getType());
-
-        if (opponent.getLocationType() == CellType.Desert) {
-            limit *= landAmplifier;
+        if (opponent.getLocationType() == preferredLand) {
+            amplifier *= landAmplifier;
         }
 
-        return Math.round(damage * limit);
+        return Math.round(damage * amplifier);
     }
 }

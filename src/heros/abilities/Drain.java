@@ -1,4 +1,4 @@
-package abilities;
+package heros.abilities;
 
 import heros.Hero;
 import heros.HeroType;
@@ -11,31 +11,28 @@ public class Drain extends Ability {
     private float percentPerLvl;
 
     // dmg from here is actually percent. same goes for dmgadd...
-    Drain(int dmg, float landAmplifier, int dmgAddPerLevel,
-          Map<HeroType, Float> raceAmplifier) {
+    Drain(final int dmg, final float landAmplifier, final int dmgAddPerLevel,
+          final Map<HeroType, Float> raceAmplifier) {
         super(dmg, landAmplifier, dmgAddPerLevel, raceAmplifier);
-        percent = dmg;
-        percent /= 100;
-        percentPerLvl = dmgAddPerLevel;
-        percentPerLvl /= 100;
+        percent = dmg / 100f;
+        percentPerLvl = dmgAddPerLevel / 100f;
         preferredLand = CellType.Desert;
     }
 
-
     @Override
-    public int applyAbility(Hero wizard, Hero opponent) {
+    public int applyAbility(final Hero wizard, final Hero opponent) {
         int baseHP, damage;
-        float percent;
+        float amplifier;
 
         baseHP = Math.min(Math.round(0.3f * opponent.getMAX_HP()), opponent.getHP());
-        percent = this.percent + percentPerLvl * wizard.getLvl();
-        percent *= raceAmplifier.get(opponent.getType());
+        amplifier = percent + percentPerLvl * wizard.getLvl();
+        amplifier *= raceAmplifier.get(opponent.getType());
 
         if (opponent.getLocationType() == preferredLand) {
-            percent *= landAmplifier;
+            amplifier *= landAmplifier;
         }
 
-        damage = Math.round(percent * baseHP);
+        damage = Math.round(amplifier * baseHP);
 
         return damage;
     }

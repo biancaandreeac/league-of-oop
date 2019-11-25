@@ -6,7 +6,7 @@ import java.io.FileWriter;
 public class GameLogic {
     private GameInput input;
 
-    public GameLogic(GameInput input) {
+    public GameLogic(final GameInput input) {
         this.input = input;
     }
 
@@ -14,17 +14,9 @@ public class GameLogic {
         for (int i = 0; i < input.getRounds().size(); ++i) {
             playRound(input.getRounds().get(i));
         }
-
-        for (int i = 0; i < input.getHeroes().size(); ++i) {
-            if (!input.getHeroes().get(i).isDead()) {
-                input.getHeroes().get(i).checkLvl();
-            }
-        }
-
-        print();
     }
 
-    private void playRound(String round) {
+    private void playRound(final String round) {
         applyDoT();
         moves(round);
         fights();
@@ -38,10 +30,8 @@ public class GameLogic {
         }
     }
 
-    private void moves(String round) {
+    private void moves(final String round) {
         for (int i = 0; i < input.getHeroes().size(); ++i) {
-
-            input.getHeroes().get(i).print();
 
             if (input.getHeroes().get(i).isDead()) {
                 continue;
@@ -52,8 +42,7 @@ public class GameLogic {
                 continue;
             }
 
-            char c = round.charAt(i);
-            switch (c) {
+            switch (round.charAt(i)) {
                 case 'U':
                     input.getHeroes().get(i).move(-1, 0);
                     break;
@@ -75,20 +64,13 @@ public class GameLogic {
 
     private void fights() {
         for (int i = 0; i < input.getHeroes().size(); ++i) {
-            if (input.getHeroes().get(i).isDead()) {
-                continue;
+            if (!input.getHeroes().get(i).isDead()) {
+                input.getHeroes().get(i).fight();
             }
-            input.getHeroes().get(i).fight();
         }
     }
 
-    private void print() {
-        for (int i = 0; i < input.getHeroes().size(); ++i) {
-            input.getHeroes().get(i).print();
-        }
-    }
-
-    public void printInFile(String out) {
+    public void printInFile(final String out) {
         try {
             FileWriter fw = new FileWriter(out);
             // initialize BufferedWriter

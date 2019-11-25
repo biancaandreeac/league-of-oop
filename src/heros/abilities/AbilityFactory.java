@@ -1,8 +1,6 @@
-package abilities;
+package heros.abilities;
 
 import heros.HeroType;
-import map.Cell;
-import map.CellType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -118,13 +116,6 @@ public final class AbilityFactory {
         ability = new Paralysis(DMG.DMG_PARALYSIS, LangAmplifier.land_PARALYSIS,
                 LvlDMG.LvlDMG_PARALYSIS, RaceAmplifier.raceAmplifierParalysis);
         abilityByType.put(AbilityType.Paralysis, ability);
-    }
-
-    public static AbilityFactory getInstance() {
-        if (instance == null) {
-            instance = new AbilityFactory();
-        }
-        return instance;
     }
 
     public static Ability getAbilityByType(AbilityType type) {

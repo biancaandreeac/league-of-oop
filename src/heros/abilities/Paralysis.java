@@ -1,4 +1,4 @@
-package abilities;
+package heros.abilities;
 
 import heros.Hero;
 import heros.HeroType;
@@ -21,9 +21,9 @@ public class Paralysis extends Ability {
         damage = Math.round(damage);
 
         if (opponent.getLocationType() == CellType.Woods) {
-            opponent.delayDamage((int) damage, 6);
+            opponent.damageOvertime((int) damage, 6, 6);
         } else {
-            opponent.delayDamage((int )damage, 3);
+            opponent.damageOvertime((int )damage, 3, 3);
         }
 
         return (int) damage;

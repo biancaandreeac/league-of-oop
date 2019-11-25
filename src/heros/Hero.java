@@ -1,6 +1,6 @@
 package heros;
 
-import abilities.AbilityType;
+import heros.abilities.AbilityType;
 import map.Cell;
 import map.CellType;
 import map.Map;
@@ -64,12 +64,6 @@ public abstract class Hero {
         return abilities;
     }
 
-    public void setIncapacity(int i) {
-        incapacity = i;
-        noDelayedRounds = 0;
-        delayedDamage = 0;
-    }
-
     public boolean canMove() {
         if (incapacity == 0) {
             return true;
@@ -80,16 +74,18 @@ public abstract class Hero {
 
     public boolean isDead() {
         if (HP < 0) HP = 0;
-        if (HP == 0) location.leave(this);
+        if (HP == 0) {
+            location.leave(this);
+        }
         return HP == 0;
     }
 
-    public void checkLvl() {
+    private void checkLvl() {
         if (!isDead()) {
             int res = 250 + lvl * 50;
             while (res <= XP) {
                 lvl++;
-                res = 250 + lvl * 50;
+                res += 50;
                 HP = MAX_HP + lvl * HP_lvl;
             }
         }
@@ -121,7 +117,6 @@ public abstract class Hero {
     public void fight() {
         Hero opponent = location.getOpponent(this);
         if (opponent != null) {
-            System.out.println(this.type + " " + opponent.type + " -> fight");
 
             int damage1, damage2;
             if (type == HeroType.Wizard) {
@@ -132,10 +127,8 @@ public abstract class Hero {
                 damage1 = opponent.acceptAttack(this);
             }
 
-            System.out.println(damage1 + " " + damage2 + " -> damages");
             opponent.subHP(damage1);
             subHP(damage2);
-            System.out.println(opponent.getHP() + " " + getHP() + " -> HPs");
 
             if (opponent.getHP() <= 0) {
                 addXP(Math.max(0, 200 - (getLvl() - opponent.getLvl()) * 40));
@@ -145,6 +138,8 @@ public abstract class Hero {
                 opponent.addXP(Math.max(0, 200 - (opponent.getLvl() - getLvl()) * 40));
             }
 
+            checkLvl();
+            opponent.checkLvl();
             opponent.location.leave(opponent);
         }
 
@@ -152,7 +147,6 @@ public abstract class Hero {
     }
 
     public void DoT() {
-        checkLvl();
         if (noDelayedRounds != 0) {
             subHP(delayedDamage);
             --noDelayedRounds;
@@ -161,10 +155,10 @@ public abstract class Hero {
         }
     }
 
-    public void delayDamage(int dmg, int rounds) {
+    public void damageOvertime(int dmg, int rounds, int incapacity) {
         delayedDamage = dmg;
         noDelayedRounds = rounds;
-        incapacity = 0;
+        this.incapacity = incapacity;
     }
 
     abstract int acceptAttack(Hero hero);
@@ -172,6 +166,4 @@ public abstract class Hero {
     protected abstract int attack(Knight knight);
     protected abstract int attack(Wizard wizard);
     protected abstract int attack(Pyromancer pyromancer);
-
-    public abstract void print();
 }

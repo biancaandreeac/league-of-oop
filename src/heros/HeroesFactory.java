@@ -1,6 +1,6 @@
 package heros;
 
-import abilities.AbilityType;
+import heros.abilities.AbilityType;
 
 import java.util.*;
 

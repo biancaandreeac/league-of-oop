@@ -10,7 +10,7 @@ public class GameInput {
     private ArrayList<Hero> heroes;
     private ArrayList<String> rounds;
 
-    public GameInput(Map map, ArrayList<Hero> heroes, ArrayList<String> rounds) {
+    public GameInput(final Map map, final ArrayList<Hero> heroes, final ArrayList<String> rounds) {
         this.map = map;
         this.heroes = heroes;
         this.rounds = rounds;

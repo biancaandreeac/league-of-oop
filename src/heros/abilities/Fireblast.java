@@ -1,4 +1,4 @@
-package abilities;
+package heros.abilities;
 
 import heros.Hero;
 import heros.HeroType;

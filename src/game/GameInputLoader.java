@@ -33,7 +33,7 @@ public class GameInputLoader {
         return new GameInput(map, heroes, rounds);
     }
 
-    private Map createMap(Scanner sc) {
+    private Map createMap(final Scanner sc) {
         ArrayList<ArrayList<Character>> map;
         int lines, cols;
 
@@ -56,7 +56,7 @@ public class GameInputLoader {
         return Map.getInstance(lines, cols, map);
     }
 
-    private ArrayList<Hero> createHeroes(Scanner sc) {
+    private ArrayList<Hero> createHeroes(final Scanner sc) {
         HeroesFactory.getInstance();
         ArrayList<Hero> players;
         int noOfPlayers;
@@ -75,7 +75,7 @@ public class GameInputLoader {
         return players;
     }
 
-    private ArrayList<String> createRounds(Scanner sc) {
+    private ArrayList<String> createRounds(final Scanner sc) {
         ArrayList<String> rounds;
         int noOfRounds;
         noOfRounds = sc.nextInt();

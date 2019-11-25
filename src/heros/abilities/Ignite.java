@@ -1,4 +1,4 @@
-package abilities;
+package heros.abilities;
 
 import heros.Hero;
 import heros.HeroType;
@@ -13,7 +13,7 @@ public class Ignite extends Ability {
     public Ignite(int dmg, float landAmplifier, int dmgAddPerLevel,
                   Map<HeroType, Float> raceAmplifier) {
         super(dmg, landAmplifier, dmgAddPerLevel, raceAmplifier);
-        this.dmgPerRound = 50;
+        dmgPerRound = 50;
         dmgPerRoundAddLvl = 30;
         preferredLand = CellType.Volcanic;
     }
@@ -25,7 +25,11 @@ public class Ignite extends Ability {
         damage = Math.round(damage);
         float periodicDamage = dmgPerRound + pyromancer.getLvl() * dmgPerRoundAddLvl;
         periodicDamage *= raceAmplifier.get(opponent.getType());
-        opponent.delayDamage(Math.round(periodicDamage), 2);
+        if (pyromancer.getLocationType() == CellType.Volcanic) {
+            periodicDamage *= landAmplifier;
+            periodicDamage = Math.round(periodicDamage);
+        }
+        opponent.damageOvertime(Math.round(periodicDamage), 2, 0);
         return (int) damage;
     }
 }

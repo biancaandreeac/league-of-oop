@@ -1,4 +1,4 @@
-package abilities;
+package heros.abilities;
 
 import heros.Hero;
 import heros.Rogue;
@@ -23,6 +23,7 @@ public class Backstab extends Ability {
             damage *= 1.5f;
             damage = Math.round(damage);
         }
+
         return damage;
     }
 
@@ -31,11 +32,7 @@ public class Backstab extends Ability {
         float damage = baseDamage(rogue);
 
         if (rogue.getLocationType() == CellType.Woods && ((Rogue) rogue).backstabHits >= 0) {
-            if (((Rogue) rogue).backstabHits == 0) {
-                ((Rogue) rogue).backstabHits = -3;
-            } else {
-                ((Rogue) rogue).backstabHits = - (3 % ((Rogue) rogue).backstabHits);
-            }
+            ((Rogue) rogue).backstabHits -= 3;
         }
 
         damage *= raceAmplifier.get(opponent.getType());

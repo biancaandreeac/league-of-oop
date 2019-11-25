@@ -1,9 +1,7 @@
-package abilities;
+package heros.abilities;
 
 import heros.Hero;
 import heros.HeroType;
-import heros.Wizard;
-import map.Cell;
 import map.CellType;
 
 import java.util.Map;
@@ -24,7 +22,8 @@ public abstract class Ability {
     }
 
     int baseDamage(Hero attacker) {
-        float damage = dmg + attacker.getLvl() * dmgAddPerLevel;
+        float damage;
+        damage = dmg + attacker.getLvl() * dmgAddPerLevel;
         if (attacker.getLocationType() == preferredLand) {
             damage *= landAmplifier;
             damage = Math.round(damage);

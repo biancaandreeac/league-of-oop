@@ -1,4 +1,4 @@
-package abilities;
+package heros.abilities;
 
 import heros.Hero;
 import heros.HeroType;
@@ -18,7 +18,8 @@ public class Slam extends Ability {
         float damage = baseDamage(knight);
         damage *= raceAmplifier.get(opponent.getType());
         damage = Math.round(damage);
-        opponent.setIncapacity(1);
+//        opponent.setIncapacity(1);
+        opponent.damageOvertime(0, 0, 1);
         return (int) damage;
     }
 }
