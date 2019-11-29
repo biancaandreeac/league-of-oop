@@ -1,8 +1,11 @@
-package heros;
+package heroes;
 
-import heros.abilities.AbilityType;
+import heroes.abilities.AbilityType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+
 
 public final class HeroesFactory {
     private static HeroesFactory instance = null;
@@ -22,17 +25,17 @@ public final class HeroesFactory {
     }
 
     private static class Abilities {
-        static final ArrayList<AbilityType> AB_PYROMANCER = new ArrayList<>
-                (Arrays.asList(AbilityType.Fireblast, AbilityType.Ignite));
-        static final ArrayList<AbilityType> AB_KNIGHT = new ArrayList<>
-                (Arrays.asList(AbilityType.Execute, AbilityType.Slam));
-        static final ArrayList<AbilityType> AB_WIZARD = new ArrayList<>
-                (Arrays.asList(AbilityType.Drain, AbilityType.Deflect));
-        static final ArrayList<AbilityType> AB_ROGUE = new ArrayList<>
-                (Arrays.asList(AbilityType.Backstab, AbilityType.Paralysis));
+        static final ArrayList<AbilityType> AB_PYROMANCER = new ArrayList<>(
+                Arrays.asList(AbilityType.Fireblast, AbilityType.Ignite));
+        static final ArrayList<AbilityType> AB_KNIGHT = new ArrayList<>(
+                Arrays.asList(AbilityType.Execute, AbilityType.Slam));
+        static final ArrayList<AbilityType> AB_WIZARD = new ArrayList<>(
+                Arrays.asList(AbilityType.Drain, AbilityType.Deflect));
+        static final ArrayList<AbilityType> AB_ROGUE = new ArrayList<>(
+                Arrays.asList(AbilityType.Backstab, AbilityType.Paralysis));
     }
 
-    private static Map<HeroType, Hero> heroByType;
+    private static HashMap<HeroType, Hero> heroByType;
 
     private HeroesFactory() {
         heroByType = new HashMap<>();
@@ -65,10 +68,6 @@ public final class HeroesFactory {
         return instance;
     }
 
-    public static Hero getHeroByType(final HeroType type) {
-        return heroByType.get(type);
-    }
-
     public static Hero getHeroByType(final char type) {
         switch (type) {
             case 'P':
@@ -83,7 +82,8 @@ public final class HeroesFactory {
             case 'R':
                 return new Rogue(HitPoints.HP_ROGUE, HitPointsPerLevel.HP_LVL_ROGUE,
                         HeroType.Rogue, Abilities.AB_ROGUE);
+            default:
+                return null;
         }
-        return null;
     }
 }

@@ -10,7 +10,7 @@ public class GameLogic {
         this.input = input;
     }
 
-    public void play() {
+    public final void play() {
         for (int i = 0; i < input.getRounds().size(); ++i) {
             playRound(input.getRounds().get(i));
         }
@@ -25,14 +25,13 @@ public class GameLogic {
     private void applyDoT() {
         for (int i = 0; i < input.getHeroes().size(); ++i) {
             if (!input.getHeroes().get(i).isDead()) {
-                input.getHeroes().get(i).DoT();
+                input.getHeroes().get(i).applyDamageOvertime();
             }
         }
     }
 
     private void moves(final String round) {
         for (int i = 0; i < input.getHeroes().size(); ++i) {
-
             if (input.getHeroes().get(i).isDead()) {
                 continue;
             }
@@ -58,6 +57,8 @@ public class GameLogic {
                 case '_':
                     input.getHeroes().get(i).move(0, 0);
                     break;
+                default:
+                    break;
             }
         }
     }
@@ -70,7 +71,7 @@ public class GameLogic {
         }
     }
 
-    public void printInFile(final String out) {
+    public final void printInFile(final String out) {
         try {
             FileWriter fw = new FileWriter(out);
             // initialize BufferedWriter
@@ -82,7 +83,7 @@ public class GameLogic {
             }
             // close the BufferedWriter object to finish operation
             bw.close();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

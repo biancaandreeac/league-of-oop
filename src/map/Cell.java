@@ -1,6 +1,6 @@
 package map;
 
-import heros.Hero;
+import heroes.Hero;
 
 import java.util.ArrayList;
 
@@ -8,25 +8,27 @@ public class Cell {
     private final CellType type;
     private ArrayList<Hero> heroesHere;
 
-    Cell (CellType type) {
+    Cell(final CellType type) {
         this.type = type;
         heroesHere = new ArrayList<>();
     }
 
-    public void visit(Hero hero) {
+    public final void visit(final Hero hero) {
         heroesHere.add(hero);
     }
 
-    public void leave(Hero hero) {
+    public final void leave(final Hero hero) {
         heroesHere.remove(hero);
     }
 
-    public CellType getType() {
+    public final CellType getType() {
         return type;
     }
 
-    public Hero getOpponent(Hero hero) {
-        if (heroesHere.size() <= 1) return null;
+    public final Hero getOpponent(final Hero hero) {
+        if (heroesHere.size() <= 1) {
+            return null;
+        }
         return (heroesHere.get(0) == hero) ? heroesHere.get(1) : heroesHere.get(0);
     }
 }

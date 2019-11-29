@@ -1,6 +1,6 @@
 package game;
 
-import heros.Hero;
+import heroes.Hero;
 import map.Map;
 
 import java.util.ArrayList;
@@ -16,15 +16,15 @@ public class GameInput {
         this.rounds = rounds;
     }
 
-    public Map getMap() {
+    public final Map getMap() {
         return map;
     }
 
-    ArrayList<Hero> getHeroes() {
+    final ArrayList<Hero> getHeroes() {
         return heroes;
     }
 
-    ArrayList<String> getRounds() {
+    final ArrayList<String> getRounds() {
         return rounds;
     }
 }
