@@ -3,7 +3,7 @@ package heroes;
 import common.Visitor;
 import heroes.abilities.AbilityFactory;
 import heroes.abilities.AbilityType;
-import heroes.strategies.KnightHighHP;
+import heroes.strategies.KnightStrategy;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class Knight extends Hero {
 
     Knight(final int hp, final int hpLvl, final HeroType type, final ArrayList<AbilityType> ab) {
         super(hp, hpLvl, type, ab);
-        strategy = new KnightHighHP();
+        strategy = new KnightStrategy();
         }
 
     @Override

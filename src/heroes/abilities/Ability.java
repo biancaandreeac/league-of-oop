@@ -8,10 +8,10 @@ import heroes.Pyromancer;
 import map.CellType;
 
 public abstract class Ability {
-    float landAmplifier;
+    protected float landAmplifier;
     private int dmg;
     private int dmgAddPerLevel;
-    CellType preferredLand;
+    protected CellType preferredLand;
 
     public Ability(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
         this.dmg = dmg;

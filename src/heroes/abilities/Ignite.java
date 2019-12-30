@@ -12,7 +12,7 @@ public class Ignite extends Ability {
     private float damage;
     private float periodicDamage;
 
-    public Ignite(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
+    Ignite(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
         super(dmg, landAmplifier, dmgAddPerLevel);
         preferredLand = CellType.Volcanic;
     }

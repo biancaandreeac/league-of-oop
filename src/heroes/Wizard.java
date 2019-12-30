@@ -3,7 +3,7 @@ package heroes;
 import common.Visitor;
 import heroes.abilities.AbilityFactory;
 import heroes.abilities.AbilityType;
-import heroes.strategies.WizardHighHP;
+import heroes.strategies.WizardStrategy;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Wizard extends Hero {
     Wizard(final int hp, final int hpLvl, final HeroType type, final ArrayList<AbilityType> ab) {
         super(hp, hpLvl, type, ab);
-        strategy = new WizardHighHP();
+        strategy = new WizardStrategy();
     }
 
     @Override

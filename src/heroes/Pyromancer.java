@@ -3,7 +3,7 @@ package heroes;
 import common.Visitor;
 import heroes.abilities.AbilityFactory;
 import heroes.abilities.AbilityType;
-import heroes.strategies.PyromancerHighHP;
+import heroes.strategies.PyromancerStrategy;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class Pyromancer extends Hero {
     Pyromancer(final int hp, final int hpLvl, final HeroType type,
                final ArrayList<AbilityType> ab) {
         super(hp, hpLvl, type, ab);
-        strategy = new PyromancerHighHP();
+        strategy = new PyromancerStrategy();
     }
 
     @Override

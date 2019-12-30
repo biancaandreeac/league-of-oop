@@ -13,7 +13,7 @@ public class Deflect extends Ability {
     private float damage;
 
     // dmg from here is actually percent. same goes for dmgadd...
-    public Deflect(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
+    Deflect(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
         super(dmg, landAmplifier, dmgAddPerLevel);
         final float scale = 100;
         percent = dmg / scale;

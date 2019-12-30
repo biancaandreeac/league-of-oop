@@ -8,33 +8,33 @@ public final class AbilityFactory {
 
     private static class DMG {
         static final int DMG_FIREBLAST = 350;
-        static final int DMG_IGNITE = 150;
-        static final int DMG_EXECUTE = 200;
-        static final int DMG_SLAM = 100;
-        static final int DMG_DRAIN = 20;
-        static final int DMG_DEFLECT = 35;
-        static final int DMG_BACKSTAB = 200;
+        static final int DMG_IGNITE    = 150;
+        static final int DMG_EXECUTE   = 200;
+        static final int DMG_SLAM      = 100;
+        static final int DMG_DRAIN     = 20;
+        static final int DMG_DEFLECT   = 35;
+        static final int DMG_BACKSTAB  = 200;
         static final int DMG_PARALYSIS = 40;
     }
     private static class LvlDMG {
         static final int LVL_DMG_FIREBLAST = 50;
-        static final int LVL_DMG_IGNITE = 20;
-        static final int LVL_DMG_EXECUTE = 30;
-        static final int LVL_DMG_SLAM = 40;
-        static final int LVL_DMG_DRAIN = 5;
-        static final int LVL_DMG_DEFLECT = 2;
-        static final int LVL_DMG_BACKSTAB = 20;
+        static final int LVL_DMG_IGNITE    = 20;
+        static final int LVL_DMG_EXECUTE   = 30;
+        static final int LVL_DMG_SLAM      = 40;
+        static final int LVL_DMG_DRAIN     = 5;
+        static final int LVL_DMG_DEFLECT   = 2;
+        static final int LVL_DMG_BACKSTAB  = 20;
         static final int LVL_DMG_PARALYSIS = 10;
     }
 
     private static class LandAmplifier {
         static final float LAND_FIREBLAST = 1.25f;
-        static final float LAND_IGNITE = 1.25f;
-        static final float LAND_EXECUTE = 1.15f;
-        static final float LAND_SLAM = 1.15f;
-        static final float LAND_DRAIN = 1.1f;
-        static final float LAND_DEFLECT = 1.1f;
-        static final float LAND_BACKSTAB = 1.15f;
+        static final float LAND_IGNITE    = 1.25f;
+        static final float LAND_EXECUTE   = 1.15f;
+        static final float LAND_SLAM      = 1.15f;
+        static final float LAND_DRAIN     = 1.1f;
+        static final float LAND_DEFLECT   = 1.1f;
+        static final float LAND_BACKSTAB  = 1.15f;
         static final float LAND_PARALYSIS = 1.15f;
     }
 

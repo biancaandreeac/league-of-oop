@@ -16,6 +16,7 @@ class AngelsInput {
         coordinates = new ArrayList<>();
     }
 
+    // Create an angel based on the characteristics.
     void addAngel(final String name, final int x, final int y) {
         noOfAngels++;
         angels.add(AngelFactory.getAngelByType(name));

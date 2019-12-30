@@ -1,5 +1,6 @@
 package heroes.abilities;
 
+import common.Constants;
 import heroes.Hero;
 import heroes.Rogue;
 import heroes.Knight;
@@ -73,7 +74,7 @@ public class Backstab extends Ability {
             ((Rogue) rogue).resetBackstabHits();
         }
 
-        damage *= raceAmplifier - 0.000001f;
+        damage *= raceAmplifier - Constants.APPROXIMATION_ERR;
         return Math.round(damage);
     }
 }

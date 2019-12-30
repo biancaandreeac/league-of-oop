@@ -1,5 +1,6 @@
 package heroes.abilities;
 
+import common.Constants;
 import heroes.Hero;
 import heroes.Rogue;
 import heroes.Knight;
@@ -10,7 +11,7 @@ import map.CellType;
 public class Paralysis extends Ability {
     private float damage;
 
-    public Paralysis(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
+    Paralysis(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
         super(dmg, landAmplifier, dmgAddPerLevel);
         preferredLand = CellType.Woods;
     }
@@ -56,7 +57,7 @@ public class Paralysis extends Ability {
     @Override
     public final float applyAbility(final Hero rogue, final float raceAmplifier) {
         damage = baseDamage(rogue);
-        damage *= raceAmplifier - 0.000001f;
+        damage *= raceAmplifier - Constants.APPROXIMATION_ERR;
         return Math.round(damage);
     }
 

@@ -1,8 +1,7 @@
 package angels;
 
 public final class AngelFactory {
-    private AngelFactory() {
-    }
+    private AngelFactory() { }
 
     public static Angel getAngelByType(final String type) {
         if (type.equals("DamageAngel")) {
@@ -35,7 +34,7 @@ public final class AngelFactory {
         if (type.equals("XPAngel")) {
             return new XPAngel(AngelType.XPAngel);
         }
-        System.out.println("**********Type does not exist.**********");
+        System.out.println("~~Type does not exist~~");
         return null;
     }
 }

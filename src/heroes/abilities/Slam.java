@@ -11,7 +11,7 @@ import map.CellType;
 public class Slam extends Ability {
     private float damage;
 
-    public Slam(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
+    Slam(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
         super(dmg, landAmplifier, dmgAddPerLevel);
         preferredLand = CellType.Land;
     }

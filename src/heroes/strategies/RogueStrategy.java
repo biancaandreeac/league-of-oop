@@ -2,13 +2,13 @@ package heroes.strategies;
 
 import heroes.Hero;
 
-public class WizardHighHP implements HeroStrategy {
+public class RogueStrategy implements HeroStrategy {
 
     @Override
     public final void chooseStrategy(final Hero hero) {
         int maxHp = hero.getHpMax() + hero.getLvl() * hero.getHPlvl();
-        final int minLimit = 4;
-        final int maxLimit = 2;
+        final int maxLimit = 5;
+        final int minLimit = 7;
         if (maxHp / minLimit < hero.getHp() && hero.getHp() < maxHp / maxLimit) {
             highHP(hero);
         } else if (hero.getHp() < maxHp / minLimit) {
@@ -17,25 +17,25 @@ public class WizardHighHP implements HeroStrategy {
     }
 
     /**
-     * if his current hp is between 1/4 and 1/2 of his max hp,
-     * he gives up on 1/10 of his current hp and adds 60% to his modifiers.
+     * if his current hp is between 1/7 and 1/5 of his max hp,
+     * he gives up on 1/7 of his current hp and adds 40% to his modifiers.
      * @param hero - who applies this strategy.
      */
     private void highHP(final Hero hero) {
-        final int hp = 10;
-        final float modifier = 0.6f;
+        final int hp = 7;
+        final float modifier = 0.4f;
         hero.subHP(hero.getHp() / hp);
         hero.angelModifier += modifier;
     }
 
     /**
-     * if his current hp is smaller than 1/4 of his max hp,
-     * he gets an extra of 1/5 of his current hp and decreases 20% to his modifiers.
+     * if his current hp is smaller than 1/7 of his max hp,
+     * he gets an extra of 1/2 of his current hp and decreases 10% to his modifiers.
      * @param hero - who applies this strategy.
      */
     private void lowHP(final Hero hero) {
-        final int hp = 5;
-        final float modifier = 0.2f;
+        final int hp = 2;
+        final float modifier = 0.1f;
         hero.angelModifier -= modifier;
         hero.subHP(-hero.getHp() / hp);
     }

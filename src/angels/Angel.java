@@ -24,6 +24,8 @@ public abstract class Angel implements Visitor, Observable {
         x = newX;
         y = newY;
         notifyObserver();
+
+        // Visit every player from this location.
         ArrayList<Hero> heroes = location.getLocationHeroes();
         for (Hero hero : heroes) {
             hero.accept(this);
@@ -33,7 +35,6 @@ public abstract class Angel implements Visitor, Observable {
     public final int getX() {
         return x;
     }
-
     public final int getY() {
         return y;
     }
@@ -42,16 +43,28 @@ public abstract class Angel implements Visitor, Observable {
         return type;
     }
 
+    /**
+     * Checks if an angel helps or hits a hero.
+     * @return true - if it's good;
+     *         false - otherwise.
+     */
     public final Boolean isGood() {
         return type != AngelType.TheDoomer && type != AngelType.Dracula
                 && type != AngelType.DarkAngel;
     }
 
+    /**
+     * Used when an angel is spawned.
+     */
     @Override
     public final void notifyObserver() throws IOException {
         angelObserver.update(this);
     }
 
+    /**
+     * Used when a player is helped / hit by an angel.
+     * @param hero - the player.
+     */
     @Override
     public final void notifyObserver(final Object hero) throws IOException {
         angelObserver.update(this, hero);

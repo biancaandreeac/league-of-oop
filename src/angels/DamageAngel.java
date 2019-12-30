@@ -1,5 +1,6 @@
 package angels;
 
+import heroes.Hero;
 import heroes.Knight;
 import heroes.Pyromancer;
 import heroes.Rogue;
@@ -16,36 +17,31 @@ public class DamageAngel extends Angel {
     @Override
     public final void visit(final Knight knight) throws IOException {
         final float modifier = 0.15f;
-        if (!knight.isDead()) {
-            knight.angelModifier += modifier;
-            notifyObserver(knight);
-        }
+        help(knight, modifier);
     }
 
     @Override
     public final void visit(final Pyromancer pyromancer) throws IOException {
         final float modifier = 0.2f;
-        if (!pyromancer.isDead()) {
-            pyromancer.angelModifier += modifier;
-            notifyObserver(pyromancer);
-        }
+        help(pyromancer, modifier);
     }
 
     @Override
     public final void visit(final Rogue rogue) throws IOException {
         final float modifier = 0.3f;
-        if (!rogue.isDead()) {
-            rogue.angelModifier += modifier;
-            notifyObserver(rogue);
-        }
+        help(rogue, modifier);
     }
 
     @Override
     public final void visit(final Wizard wizard) throws IOException {
         final float modifier = 0.3f;
-        if (!wizard.isDead()) {
-            wizard.angelModifier += modifier;
-            notifyObserver(wizard);
+        help(wizard, modifier);
+    }
+
+    private void help(final Hero hero, final float modifier) throws IOException{
+        if (!hero.isDead()) {
+            hero.angelModifier += modifier;
+            notifyObserver(hero);
         }
     }
 }

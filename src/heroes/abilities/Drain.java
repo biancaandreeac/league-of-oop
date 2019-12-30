@@ -64,7 +64,7 @@ public class Drain extends Ability {
     public final float applyAbility(final Hero wizard, final float raceAmplifier) {
         float amplifier;
 
-        amplifier = percent + percentPerLvl * wizard.getLvl() - 0.000001f;
+        amplifier = percent + percentPerLvl * wizard.getLvl();
         amplifier *= raceAmplifier;
 
         if (wizard.getLocationType() == preferredLand) {

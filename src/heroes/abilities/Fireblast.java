@@ -1,5 +1,6 @@
 package heroes.abilities;
 
+import common.Constants;
 import heroes.Hero;
 import heroes.Rogue;
 import heroes.Knight;
@@ -9,7 +10,7 @@ import map.CellType;
 
 public class Fireblast extends Ability {
 
-    public Fireblast(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
+    Fireblast(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
         super(dmg, landAmplifier, dmgAddPerLevel);
         preferredLand =  CellType.Volcanic;
     }
@@ -47,7 +48,7 @@ public class Fireblast extends Ability {
     @Override
     public final float applyAbility(final Hero pyromancer, final float raceAmplifier) {
         float damage = baseDamage(pyromancer);
-        damage *= raceAmplifier - 0.000001f;
+        damage *= raceAmplifier - Constants.APPROXIMATION_ERR;
         return Math.round(damage);
     }
 }

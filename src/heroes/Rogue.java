@@ -3,7 +3,7 @@ package heroes;
 import common.Visitor;
 import heroes.abilities.AbilityFactory;
 import heroes.abilities.AbilityType;
-import heroes.strategies.RogueHighHP;
+import heroes.strategies.RogueStrategy;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class Rogue extends Hero {
 
     Rogue(final int hp, final int hpLvl, final HeroType type, final ArrayList<AbilityType> ab) {
         super(hp, hpLvl, type, ab);
-        strategy = new RogueHighHP();
+        strategy = new RogueStrategy();
     }
 
     public final int getHits() {

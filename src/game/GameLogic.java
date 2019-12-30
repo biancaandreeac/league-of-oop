@@ -39,6 +39,10 @@ public class GameLogic {
         }
     }
 
+    /**
+     * Register observers for each player.
+     * @param bw - used to print in a given file.
+     */
     private void registerHeroObservers(final BufferedWriter bw) {
         for (int i = 0; i < input.getHeroes().size(); ++i) {
             input.getHeroes().get(i).register(new HeroesObserver(bw));
@@ -102,11 +106,17 @@ public class GameLogic {
         }
     }
 
+    /**
+     * Now the angels are spawned.
+     * @param roundNo - the number of this round.
+     * @param bw - used by the observer to write in a file.
+     */
     private void angelsTurn(final int roundNo, final BufferedWriter bw) throws IOException {
         AngelsInput angelsInput = input.getAngels().get(roundNo);
         if (angelsInput != null) {
             for (int i = 0; i < angelsInput.getNoOfAngels(); ++i) {
                 Angel angel = angelsInput.getAngel(i);
+                // every angel gets an observer.
                 angel.register(new AngelsObserver(bw));
                 angel.setLocation(angelsInput.getX(i), angelsInput.getY(i));
             }

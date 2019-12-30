@@ -30,7 +30,7 @@ public abstract class Hero implements Visitable, Observable {
     private HeroType type;
     private Cell location;
     protected ArrayList<AbilityType> abilities;
-    HeroStrategy strategy;
+    protected HeroStrategy strategy;
     private Observer heroObserver;
 
     Hero(final int hp, final int hpLvl, final HeroType type, final ArrayList<AbilityType> ab) {
@@ -87,6 +87,7 @@ public abstract class Hero implements Visitable, Observable {
 
     public final boolean canMove() {
         if (incapacity == 0) {
+            // if he can move, then he gets the chance to apply a strategy.
             strategy.chooseStrategy(this);
             return true;
         }
