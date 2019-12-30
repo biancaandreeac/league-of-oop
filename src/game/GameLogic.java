@@ -1,7 +1,10 @@
 package game;
 
+import angels.Angel;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class GameLogic {
     private GameInput input;
@@ -10,9 +13,26 @@ public class GameLogic {
         this.input = input;
     }
 
-    public final void play() {
-        for (int i = 0; i < input.getRounds().size(); ++i) {
-            playRound(input.getRounds().get(i));
+    public final void play(String outputFileName) {
+        try {
+            FileWriter fw = new FileWriter(outputFileName);
+
+            // initialize BufferedWriter
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            for (int i = 0; i < input.getRounds().size(); ++i) {
+                bw.write("~~ Round " + (i + 1) + " ~~");
+                bw.newLine();
+                playRound(input.getRounds().get(i));
+                angelsTurn(i);
+                bw.newLine();
+            }
+
+            printInFile(bw);
+            // close the BufferedWriter object to finish operation
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -30,12 +50,14 @@ public class GameLogic {
         }
     }
 
+
     private void moves(final String round) {
         for (int i = 0; i < input.getHeroes().size(); ++i) {
             if (input.getHeroes().get(i).isDead()) {
                 continue;
             }
 
+            // here we also choose a strategy if necessary
             if (!input.getHeroes().get(i).canMove()) {
                 input.getHeroes().get(i).move(0, 0);
                 continue;
@@ -71,20 +93,26 @@ public class GameLogic {
         }
     }
 
-    public final void printInFile(final String out) {
-        try {
-            FileWriter fw = new FileWriter(out);
-            // initialize BufferedWriter
-            BufferedWriter bw = new BufferedWriter(fw);
-            // write values
-            for (int i = 0; i < input.getHeroes().size(); ++i) {
-                bw.write(input.getHeroes().get(i).toString());
-                bw.newLine();
+    private void angelsTurn(int roundNo) throws IOException {
+        AngelsInput angelsInput = input.getAngels().get(roundNo);
+        if (angelsInput != null) {
+            for (int i = 0; i < angelsInput.getNoOfAngels(); ++i) {
+                Angel angel = angelsInput.getAngel(i);
+                angel.setLocation(angelsInput.getX(i), angelsInput.getY(i));
             }
-            // close the BufferedWriter object to finish operation
-            bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+    }
+
+    private void printInFile(final BufferedWriter bw) throws IOException {
+        // write values
+        System.out.println("~~ Results ~~");
+        bw.write("~~ Results ~~");
+        bw.newLine();
+        for (int i = 0; i < input.getHeroes().size(); ++i) {
+            System.out.println(input.getHeroes().get(i).toString());
+            bw.write(input.getHeroes().get(i).toString());
+            bw.newLine();
+        }
+
     }
 }

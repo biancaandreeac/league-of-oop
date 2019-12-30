@@ -1,6 +1,7 @@
 package heroes;
 
 import common.Constants;
+import common.Visitable;
 import heroes.abilities.AbilityType;
 import map.Cell;
 import map.CellType;
@@ -8,12 +9,15 @@ import map.Map;
 
 import java.util.ArrayList;
 
-public abstract class Hero {
+public abstract class Hero implements Visitable{
+    private int id;
+    public float angelModifier = 0f;
+
     private int hp, hpLvl;
     private final int hpMax;
-    private int xp;
-    private int lvl;
-    private int incapacity;
+    private int xp = 0;
+    private int lvl = 0;
+    private int incapacity = 0;
     private int x, y; // coordinates
 
     private int overtimeDamage;
@@ -29,9 +33,18 @@ public abstract class Hero {
         this.hpLvl = hpLvl;
         this.type = type;
         abilities = ab;
-        xp = 0;
-        lvl = 0;
-        incapacity = 0;
+    }
+
+    public void setID(int id) {
+        this.id = id;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public HeroType getType() {
+        return type;
     }
 
     final int getXp() {
@@ -51,8 +64,13 @@ public abstract class Hero {
     }
 
     public final int getHpMax() {
-        return hpMax;
+        return hpMax + lvl * hpLvl;
     }
+
+    final String getCoordinates() {
+        return x + " " + y;
+    }
+
 
     public final CellType getLocationType() {
         return location.getType();
@@ -73,13 +91,12 @@ public abstract class Hero {
     public final boolean isDead() {
         if (hp <= 0) {
             hp = 0;
-            location.leave(this);
             return true;
         }
         return false;
     }
 
-    private void checkLvl() {
+    public void checkLvl() {
         if (isDead()) {
             return;
         }
@@ -93,30 +110,39 @@ public abstract class Hero {
         }
     }
 
-    private void subHP(final int delta) {
-        hp -= delta;
+    public void subHP(final int delta) {
+        if (hp - delta > getHpMax()) {
+            hp = getHpMax();
+        } else {
+            hp -= delta;
+        }
     }
 
-    private void addXP(final int delta) {
+    public void addXP(final int delta) {
         xp += delta;
     }
 
     public final void initLocation(final int newX, final int newY) {
         x = newX;
         y = newY;
+        location = Map.getCellAt(x, y);
+        location.visit(this);
     }
 
     public final void move(final int deltaX, final int deltaY) {
         x += deltaX;
         y += deltaY;
-        location = Map.getCellAt(x, y);
-        location.visit(this);
+        location.leave(this);
+        if (!(x < 0 || y < 0)) {
+            location = Map.getCellAt(x, y);
+            location.visit(this);
+        }
     }
 
-    public final void fight() {
+    public final void fight(){
         Hero opponent = location.getOpponent(this);
-        if (opponent != null) {
-            int dmgOpponent, dmgThis;
+        if (opponent != null && !opponent.isDead()) {
+            int dmgOpponent, dmgThis, computedXp;
 
             /* if there is a wizard fighting it has to be first, otherwise if it fight *
              * a rogue and it has already applied that amplifier the base damage will  *
@@ -132,14 +158,12 @@ public abstract class Hero {
             opponent.subHP(dmgOpponent);
             subHP(dmgThis);
 
-            int computedXp;
             /* Add xp if someone is defeated */
-            if (opponent.getHp() <= 0) {
+            if (opponent.getHp() <= 0 && getHp() > 0) {
                 computedXp = Constants.XP_MAX;
                 computedXp -= ((getLvl() - opponent.getLvl()) * Constants.XP_MULTIPLIER);
                 addXP(Math.max(0, computedXp));
-            }
-            if (getHp() <= 0) {
+            } else if (getHp() <= 0 && opponent.getHp() > 0) {
                 computedXp = Constants.XP_MAX;
                 computedXp -= ((opponent.getLvl() - getLvl()) * Constants.XP_MULTIPLIER);
                 opponent.addXP(Math.max(0, computedXp));
@@ -147,10 +171,7 @@ public abstract class Hero {
 
             checkLvl();
             opponent.checkLvl();
-            opponent.location.leave(opponent);
         }
-
-        location.leave(this);
     }
 
     public final void applyDamageOvertime() {
@@ -168,14 +189,21 @@ public abstract class Hero {
         incapacity = immobility;
     }
 
-    final String getCoordinates() {
-        return x + " " + y;
-    }
-
     /**
      * Used by double dispatch. Applied by the player that gets the damage.
      * @param attacker - the player that attacks;
      * @return - computed damage;
      */
     protected abstract int acceptAttack(Hero attacker);
+
+    /**
+     * Used by LevelUpAngel.
+     */
+    public void lvlUp(){
+        final int baseXP = 250;
+        final int lvlXP = 50;
+        xp = baseXP + lvl * lvlXP;
+        lvl++;
+        hp = hpMax + lvl * hpLvl;
+    }
 }

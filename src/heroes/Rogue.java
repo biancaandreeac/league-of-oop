@@ -1,8 +1,10 @@
 package heroes;
 
+import common.Visitor;
 import heroes.abilities.AbilityFactory;
 import heroes.abilities.AbilityType;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Rogue extends Hero {
@@ -30,17 +32,24 @@ public class Rogue extends Hero {
 
     @Override
     public final int acceptAttack(final Hero attacker) {
-        int damage1 = AbilityFactory.getAbilityByType(attacker.abilities.get(0)).
+        float damage1 = AbilityFactory.getAbilityByType(attacker.abilities.get(0)).
                 useAbility(attacker, this);
-        int damage2 = AbilityFactory.getAbilityByType(attacker.abilities.get(1)).
+        float damage2 = AbilityFactory.getAbilityByType(attacker.abilities.get(1)).
                 useAbility(attacker, this);
-        return damage1 + damage2;
+        return Math.round(damage1) + Math.round(damage2);
     }
+
+
 
     @Override
     public final String toString() {
         return (isDead())
                 ? "R dead"
                 : "R " + getLvl() + " " + getXp() + " " + getHp() + " " + getCoordinates();
+    }
+
+    @Override
+    public void accept(Visitor visitor) throws IOException {
+        visitor.visit(this);
     }
 }

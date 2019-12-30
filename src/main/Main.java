@@ -13,7 +13,6 @@ public final class Main {
         GameInputLoader gameInputLoader = new GameInputLoader(args[0]);
         GameInput input = gameInputLoader.load();
         GameLogic game = new GameLogic(input);
-        game.play();
-        game.printInFile(args[1]);
+        game.play(args[1]);
     }
 }
