@@ -17,6 +17,7 @@ public class Dracula extends Angel{
         if (!knight.isDead()) {
             knight.angelModifier -= 0.2f;
             knight.subHP(60);
+            notifyObserver(knight);
         }
     }
 
@@ -25,6 +26,7 @@ public class Dracula extends Angel{
         if (!pyromancer.isDead()) {
             pyromancer.angelModifier -= 0.3f;
             pyromancer.subHP(40);
+            notifyObserver(pyromancer);
         }
     }
 
@@ -33,6 +35,7 @@ public class Dracula extends Angel{
         if (!rogue.isDead()) {
             rogue.angelModifier -= 0.1f;
             rogue.subHP(35);
+            notifyObserver(rogue);
         }
     }
 
@@ -41,6 +44,7 @@ public class Dracula extends Angel{
         if (!wizard.isDead()) {
             wizard.angelModifier -= 0.4f;
             wizard.subHP(20);
+            notifyObserver(wizard);
         }
     }
 }

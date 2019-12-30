@@ -1,14 +1,9 @@
 package heroes.abilities;
 
-import heroes.Hero;
-import heroes.Knight;
-import heroes.Rogue;
-import heroes.Wizard;
-import heroes.Pyromancer;
+import heroes.*;
 import map.CellType;
 
 public class Fireblast extends Ability {
-    private float damage;
 
     public Fireblast(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
         super(dmg, landAmplifier, dmgAddPerLevel);
@@ -26,30 +21,29 @@ public class Fireblast extends Ability {
     }
 
     @Override
-    public final int useAbility(final Hero pyromancer, final Rogue opponent) {
-        return applyAbility(pyromancer, RaceModifiers.ROGUE);
+    public final float useAbility(final Hero pyromancer, final Rogue opponent) {
+        return applyAbility(pyromancer, RaceModifiers.ROGUE + pyromancer.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero pyromancer, final Knight opponent) {
-        return applyAbility(pyromancer, RaceModifiers.KNIGHT);
+    public final float useAbility(final Hero pyromancer, final Knight opponent) {
+        return applyAbility(pyromancer, RaceModifiers.KNIGHT + pyromancer.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero pyromancer, final Pyromancer opponent) {
-        return applyAbility(pyromancer, RaceModifiers.PYROMANCER);
+    public final float useAbility(final Hero pyromancer, final Pyromancer opponent) {
+        return applyAbility(pyromancer, RaceModifiers.PYROMANCER + pyromancer.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero pyromancer, final Wizard opponent) {
-        return applyAbility(pyromancer, RaceModifiers.WIZARD);
+    public final float useAbility(final Hero pyromancer, final Wizard opponent) {
+        return applyAbility(pyromancer, RaceModifiers.WIZARD + pyromancer.angelModifier);
     }
 
     @Override
-    public final int applyAbility(final Hero pyromancer, final float raceAmplifier) {
-        damage = baseDamage(pyromancer);
-        damage *= raceAmplifier;
-        damage = Math.round(damage);
-        return (int) damage;
+    public final float applyAbility(final Hero pyromancer, final float raceAmplifier) {
+        float damage = baseDamage(pyromancer);
+        damage *= raceAmplifier - 0.000001f;
+        return Math.round(damage);
     }
 }

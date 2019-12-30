@@ -18,6 +18,7 @@ public class GoodBoy extends Angel{
         if (!knight.isDead()) {
             knight.angelModifier += 0.4f;
             knight.subHP(-20);
+            notifyObserver(knight);
         }
     }
 
@@ -26,6 +27,7 @@ public class GoodBoy extends Angel{
         if (!pyromancer.isDead()) {
             pyromancer.angelModifier += 0.5f;
             pyromancer.subHP(-30);
+            notifyObserver(pyromancer);
         }
     }
 
@@ -34,6 +36,7 @@ public class GoodBoy extends Angel{
         if (!rogue.isDead()) {
             rogue.angelModifier += 0.4f;
             rogue.subHP(-40);
+            notifyObserver(rogue);
         }
     }
 
@@ -42,6 +45,7 @@ public class GoodBoy extends Angel{
         if (!wizard.isDead()) {
             wizard.angelModifier += 0.3f;
             wizard.subHP(-50);
+            notifyObserver(wizard);
         }
     }
 }

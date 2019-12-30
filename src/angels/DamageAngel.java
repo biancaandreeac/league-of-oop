@@ -17,6 +17,7 @@ public class DamageAngel extends Angel {
     public void visit(Knight knight) throws IOException {
         if (!knight.isDead()) {
             knight.angelModifier += 0.15f;
+            notifyObserver(knight);
         }
     }
 
@@ -24,6 +25,7 @@ public class DamageAngel extends Angel {
     public void visit(Pyromancer pyromancer) throws IOException {
         if (!pyromancer.isDead()) {
             pyromancer.angelModifier += 0.2f;
+            notifyObserver(pyromancer);
 
         }
     }
@@ -32,6 +34,7 @@ public class DamageAngel extends Angel {
     public void visit(Rogue rogue) throws IOException {
         if (!rogue.isDead()) {
             rogue.angelModifier += 0.3f;
+            notifyObserver(rogue);
         }
     }
 
@@ -39,6 +42,7 @@ public class DamageAngel extends Angel {
     public void visit(Wizard wizard) throws IOException {
         if (!wizard.isDead()) {
             wizard.angelModifier += 0.3f;
+            notifyObserver(wizard);
         }
     }
 }

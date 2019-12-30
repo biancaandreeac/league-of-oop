@@ -33,38 +33,38 @@ public class Drain extends Ability {
     }
 
     @Override
-    public final int useAbility(final Hero wizard, final Rogue opponent) {
-            baseHP = Math.min(Math.round(Constants.DRAIN_PERCENT * opponent.getHpMax()),
-                        opponent.getHp());
-        return applyAbility(wizard, RaceModifiers.ROGUE);
-    }
-
-    @Override
-    public final int useAbility(final Hero wizard, final Knight opponent) {
+    public final float useAbility(final Hero wizard, final Rogue opponent) {
         baseHP = Math.min(Math.round(Constants.DRAIN_PERCENT * opponent.getHpMax()),
-                    opponent.getHp());
-        return applyAbility(wizard, RaceModifiers.KNIGHT);
+                opponent.getHp());
+        return applyAbility(wizard, RaceModifiers.ROGUE + wizard.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero wizard, final Pyromancer opponent) {
+    public final float useAbility(final Hero wizard, final Knight opponent) {
         baseHP = Math.min(Math.round(Constants.DRAIN_PERCENT * opponent.getHpMax()),
-                    opponent.getHp());
-        return applyAbility(wizard, RaceModifiers.PYROMANCER);
+                opponent.getHp());
+        return applyAbility(wizard, RaceModifiers.KNIGHT + wizard.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero wizard, final Wizard opponent) {
+    public final float useAbility(final Hero wizard, final Pyromancer opponent) {
         baseHP = Math.min(Math.round(Constants.DRAIN_PERCENT * opponent.getHpMax()),
-                    opponent.getHp());
-        return applyAbility(wizard, RaceModifiers.WIZARD);
+                opponent.getHp());
+        return applyAbility(wizard, RaceModifiers.PYROMANCER + wizard.angelModifier);
     }
 
     @Override
-    public final int applyAbility(final Hero wizard, final float raceAmplifier) {
+    public final float useAbility(final Hero wizard, final Wizard opponent) {
+        baseHP = Math.min(Math.round(Constants.DRAIN_PERCENT * opponent.getHpMax()),
+                opponent.getHp());
+        return applyAbility(wizard, RaceModifiers.WIZARD + wizard.angelModifier);
+    }
+
+    @Override
+    public final float applyAbility(final Hero wizard, final float raceAmplifier) {
         float amplifier;
 
-        amplifier = percent + percentPerLvl * wizard.getLvl();
+        amplifier = percent + percentPerLvl * wizard.getLvl() - 0.000001f;
         amplifier *= raceAmplifier;
 
         if (wizard.getLocationType() == preferredLand) {
@@ -73,6 +73,4 @@ public class Drain extends Ability {
 
         return Math.round(amplifier * baseHP);
     }
-
-
 }

@@ -16,6 +16,7 @@ public class Spawner extends Angel{
     public void visit(Knight knight) throws IOException {
         if (knight.isDead()) {
             knight.subHP(-200);
+            notifyObserver(knight);
         }
     }
 
@@ -23,6 +24,7 @@ public class Spawner extends Angel{
     public void visit(Pyromancer pyromancer) throws IOException {
         if (pyromancer.isDead()) {
             pyromancer.subHP(-150);
+            notifyObserver(pyromancer);
         }
     }
 
@@ -30,6 +32,7 @@ public class Spawner extends Angel{
     public void visit(Rogue rogue) throws IOException {
         if (rogue.isDead()) {
             rogue.subHP(-180);
+            notifyObserver(rogue);
         }
     }
 
@@ -37,6 +40,7 @@ public class Spawner extends Angel{
     public void visit(Wizard wizard) throws IOException {
         if (wizard.isDead()) {
             wizard.subHP(-120);
+            notifyObserver(wizard);
         }
     }
 }

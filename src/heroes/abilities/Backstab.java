@@ -1,10 +1,6 @@
 package heroes.abilities;
 
-import heroes.Hero;
-import heroes.Knight;
-import heroes.Rogue;
-import heroes.Wizard;
-import heroes.Pyromancer;
+import heroes.*;
 import map.CellType;
 
 public class Backstab extends Ability {
@@ -31,42 +27,39 @@ public class Backstab extends Ability {
      * @return computed base damage
      */
     @Override
-    final int baseDamage(final Hero rogue) {
+    final float baseDamage(final Hero rogue) {
         damage = super.baseDamage(rogue);
         /* The damage can be amplified by 1.5 one time in every 3 rounds if the fight is *
          * being held in the woods                                                       */
         if (rogue.getLocationType() == CellType.Woods && ((Rogue) rogue).getHits() >= 0) {
             final float amplifier = 1.5f;
             damage *= amplifier;
-            damage = Math.round(damage);
         }
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int useAbility(final Hero rogue, final Rogue opponent) {
-        final float raceAmplifier = 1.2f;
-        return applyAbility(rogue, RaceModifiers.ROGUE);
+    public final float useAbility(final Hero rogue, final Rogue opponent) {
+        return applyAbility(rogue, RaceModifiers.ROGUE + rogue.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero rogue, final Knight opponent) {
-        final float raceAmplifier = 0.9f;
-        return applyAbility(rogue, RaceModifiers.KNIGHT);
+    public final float useAbility(final Hero rogue, final Knight opponent) {
+        return applyAbility(rogue, RaceModifiers.KNIGHT + rogue.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero rogue, final Pyromancer opponent) {
-        return applyAbility(rogue, RaceModifiers.PYROMANCER);
+    public final float useAbility(final Hero rogue, final Pyromancer opponent) {
+        return applyAbility(rogue, RaceModifiers.PYROMANCER + rogue.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero rogue, final Wizard opponent) {
-        return applyAbility(rogue, RaceModifiers.WIZARD);
+    public final float useAbility(final Hero rogue, final Wizard opponent) {
+        return applyAbility(rogue, RaceModifiers.WIZARD + rogue.angelModifier);
     }
 
     @Override
-    public final int applyAbility(final Hero rogue, final float raceAmplifier) {
+    public final float applyAbility(final Hero rogue, final float raceAmplifier) {
         damage = baseDamage(rogue);
         ((Rogue) rogue).incHits();
 
@@ -76,7 +69,7 @@ public class Backstab extends Ability {
             ((Rogue) rogue).resetBackstabHits();
         }
 
-        damage *= raceAmplifier;
+        damage *= raceAmplifier - 0.000001f;
         return Math.round(damage);
     }
 }

@@ -3,6 +3,8 @@ package heroes;
 import common.Visitor;
 import heroes.abilities.AbilityFactory;
 import heroes.abilities.AbilityType;
+import heroes.strategies.WizardHighHP;
+import heroes.strategies.WizardLowHP;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +23,18 @@ public class Wizard extends Hero {
                 useAbility(attacker, this);
 
         return Math.round(damageAbility1) + Math.round(damageAbility2);
+    }
+
+    @Override
+    public void chooseStrategy() {
+        int maxHp = getHpMax() + getLvl() * getHPlvl();
+        if (maxHp / 4f < getHp() && getHp() < maxHp / 2f) {
+            strategy = new WizardHighHP();
+            strategy.applyStrategy(this);
+        } else if (getHp() < maxHp / 4f) {
+            strategy = new WizardLowHP();
+            strategy.applyStrategy(this);
+        }
     }
 
     @Override

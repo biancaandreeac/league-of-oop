@@ -1,15 +1,10 @@
 package heroes.abilities;
 
-import heroes.Hero;
-import heroes.Knight;
-import heroes.Rogue;
-import heroes.Wizard;
-import heroes.Pyromancer;
+import heroes.*;
 import map.CellType;
 
 public class Deflect extends Ability {
     private final float percent;
-    private final float maxPercent = 70;
     private final float percentPerLvl;
     private float damage;
 
@@ -32,31 +27,32 @@ public class Deflect extends Ability {
     }
 
     @Override
-    public final int useAbility(final Hero wizard, final Rogue opponent) {
+    public final float useAbility(final Hero wizard, final Rogue opponent) {
         getDamageByOpponent(opponent);
-        return applyAbility(wizard, RaceModifiers.ROGUE);
+        return applyAbility(wizard, RaceModifiers.ROGUE + wizard.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero wizard, final Knight opponent) {
+    public final float useAbility(final Hero wizard, final Knight opponent) {
         getDamageByOpponent(opponent);
-        return applyAbility(wizard, RaceModifiers.KNIGHT);
+        return applyAbility(wizard, RaceModifiers.KNIGHT + wizard.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero wizard, final Pyromancer opponent) {
+    public final float useAbility(final Hero wizard, final Pyromancer opponent) {
         getDamageByOpponent(opponent);
-        return applyAbility(wizard, RaceModifiers.PYROMANCER);
+        return applyAbility(wizard, RaceModifiers.PYROMANCER + wizard.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero wizard, final Wizard opponent) {
+    public final float useAbility(final Hero wizard, final Wizard opponent) {
         return 0;
     }
 
     @Override
-    public final int applyAbility(final Hero wizard, final float raceAmplifier) {
+    public final float applyAbility(final Hero wizard, final float raceAmplifier) {
         float amplifier;
+        float maxPercent = 70;
         amplifier = Math.min(maxPercent, percent + wizard.getLvl() * percentPerLvl);
         amplifier *= raceAmplifier;
 
@@ -64,7 +60,7 @@ public class Deflect extends Ability {
             amplifier *= landAmplifier;
         }
 
-        return Math.round(damage * amplifier);
+        return Math.round(damage * (amplifier - 0.000001f));
     }
 
     /**

@@ -18,6 +18,7 @@ public class SmallAngel extends Angel {
         if (!knight.isDead()) {
             knight.angelModifier += 0.1f;
             knight.subHP(-10);
+            notifyObserver(knight);
         }
     }
 
@@ -26,6 +27,7 @@ public class SmallAngel extends Angel {
         if (!pyromancer.isDead()) {
             pyromancer.angelModifier += 0.15f;
             pyromancer.subHP(-15);
+            notifyObserver(pyromancer);
         }
     }
 
@@ -34,6 +36,7 @@ public class SmallAngel extends Angel {
         if (!rogue.isDead()) {
             rogue.angelModifier += 0.05f;
             rogue.subHP(-20);
+            notifyObserver(rogue);
         }
     }
 
@@ -42,6 +45,7 @@ public class SmallAngel extends Angel {
         if (!wizard.isDead()) {
             wizard.angelModifier += 0.1f;
             wizard.subHP(-25);
+            notifyObserver(wizard);
         }
     }
 }

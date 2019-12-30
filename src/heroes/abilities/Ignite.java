@@ -8,8 +8,6 @@ import heroes.Pyromancer;
 import map.CellType;
 
 public class Ignite extends Ability {
-    private final int dmgPerRound = 50;
-    private final int dmgPerRoundAddLvl = 30;
 
     private float damage;
     private float periodicDamage;
@@ -30,45 +28,49 @@ public class Ignite extends Ability {
     }
 
     @Override
-    public final int useAbility(final Hero pyromancer, final Rogue opponent) {
-        applyAbility(pyromancer, RaceModifiers.ROGUE);
+    public final float useAbility(final Hero pyromancer, final Rogue opponent) {
+        applyAbility(pyromancer, RaceModifiers.ROGUE + pyromancer.angelModifier);
         opponent.setDamageOverTime(Math.round(periodicDamage), 2, 0);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int useAbility(final Hero pyromancer, final Knight opponent) {
-        applyAbility(pyromancer, RaceModifiers.KNIGHT);
+    public final float useAbility(final Hero pyromancer, final Knight opponent) {
+        applyAbility(pyromancer, RaceModifiers.KNIGHT + pyromancer.angelModifier);
         opponent.setDamageOverTime(Math.round(periodicDamage), 2, 0);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int useAbility(final Hero pyromancer, final Pyromancer opponent) {
-        applyAbility(pyromancer, RaceModifiers.PYROMANCER);
+    public final float useAbility(final Hero pyromancer, final Pyromancer opponent) {
+        applyAbility(pyromancer, RaceModifiers.PYROMANCER + pyromancer.angelModifier);
         opponent.setDamageOverTime(Math.round(periodicDamage), 2, 0);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int useAbility(final Hero pyromancer, final Wizard opponent) {
-        applyAbility(pyromancer, RaceModifiers.WIZARD);
+    public final float useAbility(final Hero pyromancer, final Wizard opponent) {
+        applyAbility(pyromancer, RaceModifiers.WIZARD + pyromancer.angelModifier);
         opponent.setDamageOverTime(Math.round(periodicDamage), 2, 0);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int applyAbility(final Hero pyromancer, final float raceAmplifier) {
+    public final float applyAbility(final Hero pyromancer, final float raceAmplifier) {
         damage = baseDamage(pyromancer);
         damage *= raceAmplifier;
-        damage = Math.round(damage);
+
+        int dmgPerRoundAddLvl = 30;
+        int dmgPerRound = 50;
 
         periodicDamage = dmgPerRound + pyromancer.getLvl() * dmgPerRoundAddLvl;
-        periodicDamage *= raceAmplifier;
         if (pyromancer.getLocationType() == CellType.Volcanic) {
             periodicDamage *= landAmplifier;
             periodicDamage = Math.round(periodicDamage);
         }
-        return (int) damage;
+        periodicDamage *= raceAmplifier - 0.000001f;
+
+        return Math.round(damage);
     }
+
 }

@@ -1,10 +1,6 @@
 package heroes.abilities;
 
-import heroes.Hero;
-import heroes.Knight;
-import heroes.Rogue;
-import heroes.Wizard;
-import heroes.Pyromancer;
+import heroes.*;
 
 import map.CellType;
 
@@ -27,38 +23,37 @@ public class Slam extends Ability {
     }
 
     @Override
-    public final int useAbility(final Hero knight, final Rogue opponent) {
-        applyAbility(knight, RaceModifiers.ROGUE);
+    public final float useAbility(final Hero knight, final Rogue opponent) {
+        applyAbility(knight, RaceModifiers.ROGUE + knight.angelModifier);
         opponent.setDamageOverTime(0, 0, 1);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int useAbility(final Hero knight, final Knight opponent) {
-        applyAbility(knight, RaceModifiers.KNIGHT);
+    public final float useAbility(final Hero knight, final Knight opponent) {
+        applyAbility(knight, RaceModifiers.KNIGHT + knight.angelModifier);
         opponent.setDamageOverTime(0, 0, 1);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int useAbility(final Hero knight, final Pyromancer opponent) {
-        applyAbility(knight, RaceModifiers.PYROMANCER);
+    public final float useAbility(final Hero knight, final Pyromancer opponent) {
+        applyAbility(knight, RaceModifiers.PYROMANCER + knight.angelModifier);
         opponent.setDamageOverTime(0, 0, 1);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int useAbility(final Hero knight, final Wizard opponent) {
-        applyAbility(knight, RaceModifiers.WIZARD);
+    public final float useAbility(final Hero knight, final Wizard opponent) {
+        applyAbility(knight, RaceModifiers.WIZARD + knight.angelModifier);
         opponent.setDamageOverTime(0, 0, 1);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int applyAbility(final Hero knight, final float raceAmplifier) {
+    public final float applyAbility(final Hero knight, final float raceAmplifier) {
         damage = baseDamage(knight);
-        damage *= raceAmplifier;
-        damage = Math.round(damage);
-        return (int) damage;
+        damage *= raceAmplifier - 0.000001f;
+        return Math.round(damage);
     }
 }

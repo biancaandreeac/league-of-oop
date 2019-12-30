@@ -21,6 +21,7 @@ public class LifeGiver extends Angel{
             } else {
                 knight.subHP(-100);
             }
+            notifyObserver(knight);
         }
     }
 
@@ -32,6 +33,7 @@ public class LifeGiver extends Angel{
             } else {
                 pyromancer.subHP(-80);
             }
+            notifyObserver(pyromancer);
         }
     }
 
@@ -43,6 +45,7 @@ public class LifeGiver extends Angel{
             } else {
                 rogue.subHP(-90);
             }
+            notifyObserver(rogue);
         }
     }
 
@@ -54,6 +57,7 @@ public class LifeGiver extends Angel{
             } else {
                 wizard.subHP(-120);
             }
+            notifyObserver(wizard);
         }
     }
 }

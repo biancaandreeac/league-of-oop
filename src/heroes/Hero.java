@@ -1,15 +1,19 @@
 package heroes;
 
 import common.Constants;
+import common.Observable;
+import common.Observer;
 import common.Visitable;
 import heroes.abilities.AbilityType;
+import heroes.strategies.HeroStrategy;
 import map.Cell;
 import map.CellType;
 import map.Map;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-public abstract class Hero implements Visitable{
+public abstract class Hero implements Visitable, Observable {
     private int id;
     public float angelModifier = 0f;
 
@@ -26,6 +30,8 @@ public abstract class Hero implements Visitable{
     private HeroType type;
     private Cell location;
     protected ArrayList<AbilityType> abilities;
+    HeroStrategy strategy;
+    private Observer heroObserver;
 
     Hero(final int hp, final int hpLvl, final HeroType type, final ArrayList<AbilityType> ab) {
         this.hp = hp;
@@ -71,7 +77,6 @@ public abstract class Hero implements Visitable{
         return x + " " + y;
     }
 
-
     public final CellType getLocationType() {
         return location.getType();
     }
@@ -82,6 +87,7 @@ public abstract class Hero implements Visitable{
 
     public final boolean canMove() {
         if (incapacity == 0) {
+            chooseStrategy();
             return true;
         }
         --incapacity;
@@ -96,7 +102,7 @@ public abstract class Hero implements Visitable{
         return false;
     }
 
-    public void checkLvl() {
+    public void checkLvl() throws IOException {
         if (isDead()) {
             return;
         }
@@ -105,6 +111,7 @@ public abstract class Hero implements Visitable{
         int res = baseXP + lvl * lvlXP;
         while (res <= xp) {
             lvl++;
+            notifyObserver();
             res += lvlXP;
             hp = hpMax + lvl * hpLvl;
         }
@@ -139,7 +146,7 @@ public abstract class Hero implements Visitable{
         }
     }
 
-    public final void fight(){
+    public final void fight() throws IOException {
         Hero opponent = location.getOpponent(this);
         if (opponent != null && !opponent.isDead()) {
             int dmgOpponent, dmgThis, computedXp;
@@ -169,6 +176,7 @@ public abstract class Hero implements Visitable{
                 opponent.addXP(Math.max(0, computedXp));
             }
 
+            notifyObserver(opponent);
             checkLvl();
             opponent.checkLvl();
         }
@@ -196,14 +204,39 @@ public abstract class Hero implements Visitable{
      */
     protected abstract int acceptAttack(Hero attacker);
 
+    public abstract void chooseStrategy();
+
     /**
      * Used by LevelUpAngel.
      */
-    public void lvlUp(){
+    public void lvlUp() throws IOException {
         final int baseXP = 250;
         final int lvlXP = 50;
         xp = baseXP + lvl * lvlXP;
         lvl++;
         hp = hpMax + lvl * hpLvl;
+        notifyObserver();
+    }
+
+    /**
+     * Used when he gets to a new level.
+     */
+    @Override
+    public void notifyObserver() throws IOException {
+        heroObserver.update(this);
+    }
+
+    /**
+     * Used when 2 players fight to check if there is anyone defeated.
+     * @param hero - the opponent.
+     */
+    @Override
+    public void notifyObserver(Object hero) throws IOException {
+        heroObserver.update(hero, this);
+    }
+
+    @Override
+    public void register(Observer observer) {
+        heroObserver = observer;
     }
 }

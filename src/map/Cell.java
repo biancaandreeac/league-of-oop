@@ -18,7 +18,8 @@ public class Cell {
     }
 
     public final void leave(final Hero hero) {
-        heroesHere.remove(hero);
+        if (heroesHere.contains(hero))
+            heroesHere.remove(hero);
     }
 
     public final CellType getType() {
@@ -26,9 +27,25 @@ public class Cell {
     }
 
     public final Hero getOpponent(final Hero hero) {
+        int i;
         if (heroesHere.size() <= 1) {
             return null;
         }
-        return (heroesHere.get(0) == hero) ? heroesHere.get(1) : heroesHere.get(0);
+        for (i = 0; i < heroesHere.size(); ++i) {
+            if (heroesHere.get(i) == hero) {
+                ++i;
+                break;
+            }
+        }
+        for (; i < heroesHere.size(); ++i) {
+            if (!heroesHere.get(i).isDead()) {
+                return heroesHere.get(i);
+            }
+        }
+        return null;
+    }
+
+    public final ArrayList<Hero> getLocationHeroes() {
+        return heroesHere;
     }
 }

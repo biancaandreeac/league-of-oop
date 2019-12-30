@@ -1,17 +1,13 @@
 package heroes.abilities;
 
-import heroes.Hero;
-import heroes.Knight;
-import heroes.Rogue;
-import heroes.Wizard;
-import heroes.Pyromancer;
+import heroes.*;
 import map.CellType;
 
 public abstract class Ability {
-    protected float landAmplifier;
+    float landAmplifier;
     private int dmg;
     private int dmgAddPerLevel;
-    protected CellType preferredLand;
+    CellType preferredLand;
 
     public Ability(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
         this.dmg = dmg;
@@ -24,14 +20,14 @@ public abstract class Ability {
      * @param attacker - the player who attacks;
      * @return - the damage computed.
      */
-    int baseDamage(final Hero attacker) {
+    float baseDamage(final Hero attacker) {
         float damage;
         damage = dmg + attacker.getLvl() * dmgAddPerLevel;
+
         if (attacker.getLocationType() == preferredLand) {
             damage *= landAmplifier;
-            damage = Math.round(damage);
         }
-        return (int) damage;
+        return Math.round(damage);
     }
 
     /**
@@ -40,12 +36,12 @@ public abstract class Ability {
      * @param raceAmplifier - amplifier based on the opponent's type
      * @return - total damage.
      */
-    public abstract int applyAbility(Hero hero, float raceAmplifier);
+    public abstract float applyAbility(Hero hero, float raceAmplifier);
 
     // Abstract functions used for double dispatch
-    public abstract int useAbility(Hero attacker, Pyromancer opponent);
-    public abstract int useAbility(Hero attacker, Knight opponent);
-    public abstract int useAbility(Hero attacker, Rogue opponent);
-    public abstract int useAbility(Hero attacker, Wizard opponent);
+    public abstract float useAbility(Hero attacker, Pyromancer opponent);
+    public abstract float useAbility(Hero attacker, Knight opponent);
+    public abstract float useAbility(Hero attacker, Rogue opponent);
+    public abstract float useAbility(Hero attacker, Wizard opponent);
 
 }

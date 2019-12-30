@@ -1,5 +1,7 @@
 package game;
 
+import theGreatMagician.AngelsObserver;
+import theGreatMagician.HeroesObserver;
 import angels.Angel;
 
 import java.io.BufferedWriter;
@@ -19,12 +21,13 @@ public class GameLogic {
 
             // initialize BufferedWriter
             BufferedWriter bw = new BufferedWriter(fw);
+            registerHeroObservers(bw);
 
             for (int i = 0; i < input.getRounds().size(); ++i) {
                 bw.write("~~ Round " + (i + 1) + " ~~");
                 bw.newLine();
                 playRound(input.getRounds().get(i));
-                angelsTurn(i);
+                angelsTurn(i, bw);
                 bw.newLine();
             }
 
@@ -36,7 +39,13 @@ public class GameLogic {
         }
     }
 
-    private void playRound(final String round) {
+    private void registerHeroObservers(BufferedWriter bw) {
+        for (int i = 0; i < input.getHeroes().size(); ++i) {
+            input.getHeroes().get(i).register(new HeroesObserver(bw));
+        }
+    }
+
+    private void playRound(final String round) throws IOException {
         applyDoT();
         moves(round);
         fights();
@@ -85,7 +94,7 @@ public class GameLogic {
         }
     }
 
-    private void fights() {
+    private void fights() throws IOException {
         for (int i = 0; i < input.getHeroes().size(); ++i) {
             if (!input.getHeroes().get(i).isDead()) {
                 input.getHeroes().get(i).fight();
@@ -93,11 +102,12 @@ public class GameLogic {
         }
     }
 
-    private void angelsTurn(int roundNo) throws IOException {
+    private void angelsTurn(int roundNo, BufferedWriter bw) throws IOException {
         AngelsInput angelsInput = input.getAngels().get(roundNo);
         if (angelsInput != null) {
             for (int i = 0; i < angelsInput.getNoOfAngels(); ++i) {
                 Angel angel = angelsInput.getAngel(i);
+                angel.register(new AngelsObserver(bw));
                 angel.setLocation(angelsInput.getX(i), angelsInput.getY(i));
             }
         }
@@ -105,11 +115,9 @@ public class GameLogic {
 
     private void printInFile(final BufferedWriter bw) throws IOException {
         // write values
-        System.out.println("~~ Results ~~");
         bw.write("~~ Results ~~");
         bw.newLine();
         for (int i = 0; i < input.getHeroes().size(); ++i) {
-            System.out.println(input.getHeroes().get(i).toString());
             bw.write(input.getHeroes().get(i).toString());
             bw.newLine();
         }

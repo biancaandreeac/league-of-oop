@@ -1,16 +1,9 @@
 package heroes.abilities;
 
-import heroes.Hero;
-import heroes.Knight;
-import heroes.Rogue;
-import heroes.Wizard;
-import heroes.Pyromancer;
+import heroes.*;
 import map.CellType;
 
 public class Execute extends Ability {
-    private final float percent = 0.2f;
-    private final float percentAddPerLevel = 0.01f;
-    private final float maxPercent = 0.4f;
 
     public Execute(final int dmg, final float landAmplifier, final int dmgAddPerLevel) {
         super(dmg, landAmplifier, dmgAddPerLevel);
@@ -28,15 +21,15 @@ public class Execute extends Ability {
     }
 
     @Override
-    public final int useAbility(final Hero knight, final Rogue opponent) {
+    public final float useAbility(final Hero knight, final Rogue opponent) {
         if (opponent.getHp() <= computeLimit(opponent, knight.getLvl())) {
             return opponent.getHp();
         }
-        return applyAbility(knight, RaceModifiers.ROGUE);
+        return applyAbility(knight, RaceModifiers.ROGUE + knight.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero knight, final Knight opponent) {
+    public final float useAbility(final Hero knight, final Knight opponent) {
         if (opponent.getHp() <= computeLimit(opponent, knight.getLvl())) {
             return opponent.getHp();
         }
@@ -44,28 +37,26 @@ public class Execute extends Ability {
     }
 
     @Override
-    public final int useAbility(final Hero knight, final Pyromancer opponent) {
+    public final float useAbility(final Hero knight, final Pyromancer opponent) {
         if (opponent.getHp() <= computeLimit(opponent, knight.getLvl())) {
             return opponent.getHp();
         }
-        return applyAbility(knight, RaceModifiers.PYROMANCER);
+        return applyAbility(knight, RaceModifiers.PYROMANCER + knight.angelModifier);
     }
 
     @Override
-    public final int useAbility(final Hero knight, final Wizard opponent) {
+    public final float useAbility(final Hero knight, final Wizard opponent) {
         if (opponent.getHp() <= computeLimit(opponent, knight.getLvl())) {
             return opponent.getHp();
         }
-        return applyAbility(knight, RaceModifiers.WIZARD);
+        return applyAbility(knight, RaceModifiers.WIZARD + knight.angelModifier);
     }
 
-
     @Override
-    public final int applyAbility(final Hero knight, final float raceAmplifier) {
+    public final float applyAbility(final Hero knight, final float raceAmplifier) {
         float damage = baseDamage(knight);
         damage *= raceAmplifier;
-        damage = Math.round(damage);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     /**
@@ -76,6 +67,9 @@ public class Execute extends Ability {
      */
     private int computeLimit(final Hero opponent, final int attackerLvl) {
         int limit = opponent.getHpMax() + opponent.getLvl() * opponent.getHPlvl();
+        float maxPercent = 0.4f;
+        float percentAddPerLevel = 0.01f;
+        float percent = 0.2f;
         limit *= Math.min(percent + attackerLvl * percentAddPerLevel, maxPercent);
         return Math.round(limit);
     }

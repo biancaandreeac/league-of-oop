@@ -27,15 +27,15 @@ class AngelsInput {
         return noOfAngels;
     }
 
-    Angel getAngel(final int index) {
+    Angel getAngel(int index) {
         return angels.get(index);
     }
 
-    int getX(final int index) {
+    int getX(int index) {
         return coordinates.get(index * 2);
     }
 
-    int getY(final int index) {
+    int getY(int index) {
         return coordinates.get(index * 2 + 1);
     }
 

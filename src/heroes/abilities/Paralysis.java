@@ -1,10 +1,6 @@
 package heroes.abilities;
 
-import heroes.Hero;
-import heroes.Knight;
-import heroes.Rogue;
-import heroes.Wizard;
-import heroes.Pyromancer;
+import heroes.*;
 import map.CellType;
 
 public class Paralysis extends Ability {
@@ -26,48 +22,47 @@ public class Paralysis extends Ability {
     }
 
     @Override
-    public final int useAbility(final Hero rogue, final Rogue opponent) {
-        applyAbility(rogue, RaceModifiers.ROGUE);
+    public final float useAbility(final Hero rogue, final Rogue opponent) {
+        applyAbility(rogue, RaceModifiers.ROGUE + rogue.angelModifier);
         damageOverTime(opponent);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int useAbility(final Hero rogue, final Knight opponent) {
-        applyAbility(rogue, RaceModifiers.KNIGHT);
+    public final float useAbility(final Hero rogue, final Knight opponent) {
+        applyAbility(rogue, RaceModifiers.KNIGHT + rogue.angelModifier);
         damageOverTime(opponent);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int useAbility(final Hero rogue, final Pyromancer opponent) {
-        applyAbility(rogue, RaceModifiers.PYROMANCER);
+    public final float useAbility(final Hero rogue, final Pyromancer opponent) {
+        applyAbility(rogue, RaceModifiers.PYROMANCER + rogue.angelModifier);
         damageOverTime(opponent);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int useAbility(final Hero rogue, final Wizard opponent) {
-        applyAbility(rogue, RaceModifiers.WIZARD);
+    public final float useAbility(final Hero rogue, final Wizard opponent) {
+        applyAbility(rogue, RaceModifiers.WIZARD + rogue.angelModifier);
         damageOverTime(opponent);
-        return (int) damage;
+        return Math.round(damage);
     }
 
     @Override
-    public final int applyAbility(final Hero rogue, final float raceAmplifier) {
+    public final float applyAbility(final Hero rogue, final float raceAmplifier) {
         damage = baseDamage(rogue);
-        damage *= raceAmplifier;
-        damage = Math.round(damage);
-        return (int) damage;
+        damage *= raceAmplifier - 0.000001f;
+        return Math.round(damage);
     }
 
     private void damageOverTime(final Hero opponent) {
         if (opponent.getLocationType() == CellType.Woods) {
             final int roundsInWoods = 6;
-            opponent.setDamageOverTime((int) damage, roundsInWoods, roundsInWoods);
+            opponent.setDamageOverTime(Math.round(damage), roundsInWoods, roundsInWoods);
         } else {
             final int roundsNotInWoods = 3;
-            opponent.setDamageOverTime((int) damage, roundsNotInWoods, roundsNotInWoods);
+            opponent.setDamageOverTime(Math.round(damage), roundsNotInWoods, roundsNotInWoods);
         }
     }
 }
