@@ -4,7 +4,6 @@ import common.Visitor;
 import heroes.abilities.AbilityFactory;
 import heroes.abilities.AbilityType;
 import heroes.strategies.KnightHighHP;
-import heroes.strategies.KnightLowHP;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ public class Knight extends Hero {
 
     Knight(final int hp, final int hpLvl, final HeroType type, final ArrayList<AbilityType> ab) {
         super(hp, hpLvl, type, ab);
+        strategy = new KnightHighHP();
         }
 
     @Override
@@ -22,19 +22,6 @@ public class Knight extends Hero {
         float damageAbility2 = AbilityFactory.getAbilityByType(attacker.abilities.get(1)).
                 useAbility(attacker, this);
         return Math.round(damageAbility1 + damageAbility2);
-    }
-
-    @Override
-    public void chooseStrategy() {
-        int maxHp = getHpMax() + getLvl() * getHPlvl();
-        if (maxHp / 3f < getHp() && getHp() < maxHp / 2f) {
-            strategy = new KnightHighHP();
-            strategy.applyStrategy(this);
-        } else if (getHp() < maxHp / 3f) {
-            strategy = new KnightLowHP();
-            strategy.applyStrategy(this);
-
-        }
     }
 
     @Override

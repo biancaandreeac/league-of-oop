@@ -87,7 +87,7 @@ public abstract class Hero implements Visitable, Observable {
 
     public final boolean canMove() {
         if (incapacity == 0) {
-            chooseStrategy();
+            strategy.chooseStrategy(this);
             return true;
         }
         --incapacity;
@@ -203,8 +203,6 @@ public abstract class Hero implements Visitable, Observable {
      * @return - computed damage;
      */
     protected abstract int acceptAttack(Hero attacker);
-
-    public abstract void chooseStrategy();
 
     /**
      * Used by LevelUpAngel.

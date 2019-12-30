@@ -3,5 +3,5 @@ package heroes.strategies;
 import heroes.Hero;
 
 public interface HeroStrategy {
-    void applyStrategy(Hero hero);
+    void chooseStrategy(Hero hero);
 }

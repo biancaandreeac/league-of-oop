@@ -4,7 +4,6 @@ import common.Visitor;
 import heroes.abilities.AbilityFactory;
 import heroes.abilities.AbilityType;
 import heroes.strategies.RogueHighHP;
-import heroes.strategies.RogueLowHP;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ public class Rogue extends Hero {
 
     Rogue(final int hp, final int hpLvl, final HeroType type, final ArrayList<AbilityType> ab) {
         super(hp, hpLvl, type, ab);
+        strategy = new RogueHighHP();
     }
 
     public final int getHits() {
@@ -41,17 +41,7 @@ public class Rogue extends Hero {
         return Math.round(damage1) + Math.round(damage2);
     }
 
-    @Override
-    public void chooseStrategy() {
-        int maxHp = getHpMax() + getLvl() * getHPlvl();
-        if (maxHp / 7f < getHp() && getHp() < maxHp / 5f) {
-            strategy = new RogueHighHP();
-            strategy.applyStrategy(this);
-        } else if (getHp() < maxHp / 7f) {
-            strategy = new RogueLowHP();
-            strategy.applyStrategy(this);
-        }
-    }
+
 
     @Override
     public final String toString() {
