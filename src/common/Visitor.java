@@ -7,6 +7,9 @@ import heroes.Wizard;
 
 import java.io.IOException;
 
+/**
+ * Design pattern used by angels.
+ */
 public interface Visitor {
     void visit(Knight knight) throws IOException;
     void visit(Pyromancer pyromancer) throws IOException;
