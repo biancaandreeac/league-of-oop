@@ -7,39 +7,44 @@ import heroes.Wizard;
 
 import java.io.IOException;
 
-public class Spawner extends Angel{
-    Spawner(AngelType type) {
+public class Spawner extends Angel {
+
+    Spawner(final AngelType type) {
         super(type);
     }
 
     @Override
-    public void visit(Knight knight) throws IOException {
+    public final void visit(final Knight knight) throws IOException {
+        final int hp = -200;
         if (knight.isDead()) {
-            knight.subHP(-200);
+            knight.subHP(hp);
             notifyObserver(knight);
         }
     }
 
     @Override
-    public void visit(Pyromancer pyromancer) throws IOException {
+    public final void visit(final Pyromancer pyromancer) throws IOException {
+        final int hp = -150;
         if (pyromancer.isDead()) {
-            pyromancer.subHP(-150);
+            pyromancer.subHP(hp);
             notifyObserver(pyromancer);
         }
     }
 
     @Override
-    public void visit(Rogue rogue) throws IOException {
+    public final void visit(final Rogue rogue) throws IOException {
+        final int hp = -180;
         if (rogue.isDead()) {
-            rogue.subHP(-180);
+            rogue.subHP(hp);
             notifyObserver(rogue);
         }
     }
 
     @Override
-    public void visit(Wizard wizard) throws IOException {
+    public final void visit(final Wizard wizard) throws IOException {
+        final int hp = -120;
         if (wizard.isDead()) {
-            wizard.subHP(-120);
+            wizard.subHP(hp);
             notifyObserver(wizard);
         }
     }

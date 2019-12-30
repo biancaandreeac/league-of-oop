@@ -7,43 +7,47 @@ import heroes.Wizard;
 
 import java.io.IOException;
 
-public class LevelUpAngel extends Angel{
+public class LevelUpAngel extends Angel {
 
-    LevelUpAngel(AngelType type) {
+    LevelUpAngel(final AngelType type) {
         super(type);
     }
 
     @Override
-    public void visit(Knight knight) throws IOException {
+    public final void visit(final Knight knight) throws IOException {
+        final float modifier = 0.1f;
         if (!knight.isDead()) {
-            knight.angelModifier += 0.1f;
+            knight.angelModifier += modifier;
             notifyObserver(knight);
             knight.lvlUp();
         }
     }
 
     @Override
-    public void visit(Pyromancer pyromancer) throws IOException {
+    public final void visit(final Pyromancer pyromancer) throws IOException {
+        final float modifier = 0.2f;
         if (!pyromancer.isDead()) {
-            pyromancer.angelModifier += 0.2f;
+            pyromancer.angelModifier += modifier;
             notifyObserver(pyromancer);
             pyromancer.lvlUp();
         }
     }
 
     @Override
-    public void visit(Rogue rogue) throws IOException {
+    public final void visit(final Rogue rogue) throws IOException {
+        final float modifier = 0.15f;
         if (!rogue.isDead()) {
-            rogue.angelModifier += 0.15f;
+            rogue.angelModifier += modifier;
             notifyObserver(rogue);
             rogue.lvlUp();
         }
     }
 
     @Override
-    public void visit(Wizard wizard) throws IOException {
+    public final void visit(final Wizard wizard) throws IOException {
+        final float modifier = 0.25f;
         if (!wizard.isDead()) {
-            wizard.angelModifier += 0.25f;
+            wizard.angelModifier += modifier;
             notifyObserver(wizard);
             wizard.lvlUp();
         }

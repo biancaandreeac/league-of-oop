@@ -1,6 +1,10 @@
 package heroes.abilities;
 
-import heroes.*;
+import heroes.Hero;
+import heroes.Rogue;
+import heroes.Knight;
+import heroes.Wizard;
+import heroes.Pyromancer;
 import map.CellType;
 
 public class Backstab extends Ability {

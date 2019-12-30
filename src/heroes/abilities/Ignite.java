@@ -60,15 +60,15 @@ public class Ignite extends Ability {
         damage = baseDamage(pyromancer);
         damage *= raceAmplifier;
 
-        int dmgPerRoundAddLvl = 30;
-        int dmgPerRound = 50;
+        final int dmgPerRoundAddLvl = 30;
+        final int dmgPerRound = 50;
 
         periodicDamage = dmgPerRound + pyromancer.getLvl() * dmgPerRoundAddLvl;
         if (pyromancer.getLocationType() == CellType.Volcanic) {
             periodicDamage *= landAmplifier;
             periodicDamage = Math.round(periodicDamage);
         }
-        periodicDamage *= raceAmplifier - 0.000001f;
+        periodicDamage *= raceAmplifier;
 
         return Math.round(damage);
     }

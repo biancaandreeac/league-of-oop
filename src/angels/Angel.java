@@ -15,14 +15,14 @@ public abstract class Angel implements Visitor, Observable {
     private AngelType type;
     private int x, y;
 
-    Angel(AngelType type) {
+    Angel(final AngelType type) {
         this.type = type;
     }
 
-    public void setLocation(final int x, final int y) throws IOException {
-        Cell location = Map.getCellAt(x, y);
-        this.x = x;
-        this.y = y;
+    public final void setLocation(final int newX, final int newY) throws IOException {
+        Cell location = Map.getCellAt(newX, newY);
+        x = newX;
+        y = newY;
         notifyObserver();
         ArrayList<Hero> heroes = location.getLocationHeroes();
         for (Hero hero : heroes) {
@@ -30,35 +30,35 @@ public abstract class Angel implements Visitor, Observable {
         }
     }
 
-    public int getX() {
+    public final int getX() {
         return x;
     }
 
-    public int getY() {
+    public final int getY() {
         return y;
     }
 
-    public AngelType getType() {
+    public final AngelType getType() {
         return type;
     }
 
-    public Boolean isGood() {
+    public final Boolean isGood() {
         return type != AngelType.TheDoomer && type != AngelType.Dracula
                 && type != AngelType.DarkAngel;
     }
 
     @Override
-    public void notifyObserver() throws IOException {
+    public final void notifyObserver() throws IOException {
         angelObserver.update(this);
     }
 
     @Override
-    public void notifyObserver(Object hero) throws IOException {
+    public final void notifyObserver(final Object hero) throws IOException {
         angelObserver.update(this, hero);
     }
 
     @Override
-    public void register(Observer observer) {
+    public final void register(final Observer observer) {
         angelObserver = observer;
     }
 }

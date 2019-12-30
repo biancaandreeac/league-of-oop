@@ -3,32 +3,38 @@ package heroes.strategies;
 import heroes.Hero;
 
 public class PyromancerHighHP implements HeroStrategy {
+    private final int maxLimit = 3;
+    private final int minLimit = 4;
 
     @Override
-    public void chooseStrategy(Hero hero) {
+    public final void chooseStrategy(final Hero hero) {
         int maxHp = hero.getHpMax() + hero.getLvl() * hero.getHPlvl();
-        if (maxHp / 4 < hero.getHp() && hero.getHp() < maxHp / 3) {
+        if (maxHp / minLimit < hero.getHp() && hero.getHp() < maxHp / maxLimit) {
             highHP(hero);
-        } else if (hero.getHp() < maxHp / 4) {
+        } else if (hero.getHp() < maxHp / minLimit) {
             lowHP(hero);
         }
     }
 
     /**
-     * dacă (1/4 * MAX_LEVEL_HP) < CURRENT_HP < (1/3 * MAX_LEVEL_HP),
-     * el va renunța la 1/4 din HP-ul curent și va crește coeficienții cu 70%
+     * if his current hp is between 1/4 and 1/3 of his max hp,
+     * he gives up on 1/4 of his current hp and adds 70% to his modifiers.
+     * @param hero - who applies this strategy.
      */
-    private void highHP(Hero hero) {
-        hero.subHP(hero.getHp() / 4);
-        hero.angelModifier += 0.7f;
+    private void highHP(final Hero hero) {
+        final float modifier = 0.7f;
+        hero.subHP(hero.getHp() / minLimit);
+        hero.angelModifier += modifier;
     }
 
     /**
-     * dacă CURRENT_HP < (1/4 * MAX_LEVEL_HP),
-     * el va renunța la 30% din coeficienți și va primi 1/3 din HP-ul curent
+     * if his current hp is smaller than 1/4 of his max hp,
+     * he gets an extra of 1/3 of his current hp and decreases 30% to his modifiers.
+     * @param hero - who applies this strategy.
      */
-    public void lowHP(Hero hero) {
-        hero.angelModifier -= 0.3f;
-        hero.subHP(-hero.getHp()/3);
+    private void lowHP(final Hero hero) {
+        final float modifier = 0.3f;
+        hero.angelModifier -= modifier;
+        hero.subHP(-hero.getHp() / maxLimit);
     }
 }

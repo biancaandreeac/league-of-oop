@@ -31,7 +31,7 @@ public class GameInput {
         return rounds;
     }
 
-    public ArrayList<AngelsInput> getAngels() {
+    public final ArrayList<AngelsInput> getAngels() {
         return angels;
     }
 }

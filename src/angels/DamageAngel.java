@@ -9,39 +9,42 @@ import java.io.IOException;
 
 public class DamageAngel extends Angel {
 
-    DamageAngel(AngelType type) {
+    DamageAngel(final AngelType type) {
         super(type);
     }
 
     @Override
-    public void visit(Knight knight) throws IOException {
+    public final void visit(final Knight knight) throws IOException {
+        final float modifier = 0.15f;
         if (!knight.isDead()) {
-            knight.angelModifier += 0.15f;
+            knight.angelModifier += modifier;
             notifyObserver(knight);
         }
     }
 
     @Override
-    public void visit(Pyromancer pyromancer) throws IOException {
+    public final void visit(final Pyromancer pyromancer) throws IOException {
+        final float modifier = 0.2f;
         if (!pyromancer.isDead()) {
-            pyromancer.angelModifier += 0.2f;
+            pyromancer.angelModifier += modifier;
             notifyObserver(pyromancer);
-
         }
     }
 
     @Override
-    public void visit(Rogue rogue) throws IOException {
+    public final void visit(final Rogue rogue) throws IOException {
+        final float modifier = 0.3f;
         if (!rogue.isDead()) {
-            rogue.angelModifier += 0.3f;
+            rogue.angelModifier += modifier;
             notifyObserver(rogue);
         }
     }
 
     @Override
-    public void visit(Wizard wizard) throws IOException {
+    public final void visit(final Wizard wizard) throws IOException {
+        final float modifier = 0.3f;
         if (!wizard.isDead()) {
-            wizard.angelModifier += 0.3f;
+            wizard.angelModifier += modifier;
             notifyObserver(wizard);
         }
     }

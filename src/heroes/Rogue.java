@@ -51,7 +51,7 @@ public class Rogue extends Hero {
     }
 
     @Override
-    public void accept(Visitor visitor) throws IOException {
+    public final  void accept(final Visitor visitor) throws IOException {
         visitor.visit(this);
     }
 }

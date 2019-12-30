@@ -1,6 +1,10 @@
 package heroes.abilities;
 
-import heroes.*;
+import heroes.Hero;
+import heroes.Rogue;
+import heroes.Knight;
+import heroes.Wizard;
+import heroes.Pyromancer;
 import map.CellType;
 
 public class Execute extends Ability {
@@ -67,9 +71,9 @@ public class Execute extends Ability {
      */
     private int computeLimit(final Hero opponent, final int attackerLvl) {
         int limit = opponent.getHpMax() + opponent.getLvl() * opponent.getHPlvl();
-        float maxPercent = 0.4f;
-        float percentAddPerLevel = 0.01f;
-        float percent = 0.2f;
+        final float maxPercent = 0.4f;
+        final float percentAddPerLevel = 0.01f;
+        final float percent = 0.2f;
         limit *= Math.min(percent + attackerLvl * percentAddPerLevel, maxPercent);
         return Math.round(limit);
     }

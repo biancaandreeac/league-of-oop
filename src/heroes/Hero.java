@@ -41,15 +41,15 @@ public abstract class Hero implements Visitable, Observable {
         abilities = ab;
     }
 
-    public void setID(int id) {
-        this.id = id;
+    public final void setID(final int newID) {
+        id = newID;
     }
 
-    public int getID() {
+    public final int getID() {
         return id;
     }
 
-    public HeroType getType() {
+    public final HeroType getType() {
         return type;
     }
 
@@ -102,7 +102,7 @@ public abstract class Hero implements Visitable, Observable {
         return false;
     }
 
-    public void checkLvl() throws IOException {
+    public final void checkLvl() throws IOException {
         if (isDead()) {
             return;
         }
@@ -117,7 +117,7 @@ public abstract class Hero implements Visitable, Observable {
         }
     }
 
-    public void subHP(final int delta) {
+    public final void subHP(final int delta) {
         if (hp - delta > getHpMax()) {
             hp = getHpMax();
         } else {
@@ -125,7 +125,7 @@ public abstract class Hero implements Visitable, Observable {
         }
     }
 
-    public void addXP(final int delta) {
+    public final void addXP(final int delta) {
         xp += delta;
     }
 
@@ -229,12 +229,12 @@ public abstract class Hero implements Visitable, Observable {
      * @param hero - the opponent.
      */
     @Override
-    public void notifyObserver(Object hero) throws IOException {
+    public void notifyObserver(final Object hero) throws IOException {
         heroObserver.update(hero, this);
     }
 
     @Override
-    public void register(Observer observer) {
+    public final void register(final Observer observer) {
         heroObserver = observer;
     }
 }

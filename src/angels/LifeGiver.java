@@ -1,5 +1,6 @@
 package angels;
 
+import heroes.Hero;
 import heroes.Knight;
 import heroes.Pyromancer;
 import heroes.Rogue;
@@ -7,57 +8,45 @@ import heroes.Wizard;
 
 import java.io.IOException;
 
-public class LifeGiver extends Angel{
+public class LifeGiver extends Angel {
 
-    LifeGiver(AngelType type) {
+    LifeGiver(final AngelType type) {
         super(type);
     }
 
     @Override
-    public void visit(Knight knight) throws IOException {
-        if (!knight.isDead()) {
-            if (knight.getHpMax() - knight.getHp() < 100) {
-                knight.subHP(knight.getHp() - knight.getHpMax());
-            } else {
-                knight.subHP(-100);
-            }
-            notifyObserver(knight);
-        }
+    public final void visit(final Knight knight) throws IOException {
+        final int hp = 100;
+        help(knight, hp);
+
     }
 
     @Override
-    public void visit(Pyromancer pyromancer) throws IOException {
-        if (!pyromancer.isDead()) {
-            if (pyromancer.getHpMax() - pyromancer.getHp() < 80) {
-                pyromancer.subHP(pyromancer.getHp() - pyromancer.getHpMax());
-            } else {
-                pyromancer.subHP(-80);
-            }
-            notifyObserver(pyromancer);
-        }
+    public final void visit(final Pyromancer pyromancer) throws IOException {
+        final int hp = 80;
+        help(pyromancer, hp);
     }
 
     @Override
-    public void visit(Rogue rogue) throws IOException {
-        if (!rogue.isDead()) {
-            if (rogue.getHpMax() - rogue.getHp() < 90) {
-                rogue.subHP(rogue.getHp() - rogue.getHpMax());
-            } else {
-                rogue.subHP(-90);
-            }
-            notifyObserver(rogue);
-        }
+    public final void visit(final Rogue rogue) throws IOException {
+        final int hp = 90;
+        help(rogue, hp);
     }
 
     @Override
-    public void visit(Wizard wizard) throws IOException {
-        if (!wizard.isDead()) {
-            if (wizard.getHpMax() - wizard.getHp() < 120) {
-                wizard.subHP(wizard.getHp() - wizard.getHpMax());
+    public final void visit(final Wizard wizard) throws IOException {
+        final int hp = 120;
+        help(wizard, hp);
+    }
+
+    private void help(final Hero hero, final int hp) throws IOException {
+        if (!hero.isDead()) {
+            if (hero.getHpMax() - hero.getHp() < hp) {
+                hero.subHP(hero.getHp() - hero.getHpMax());
             } else {
-                wizard.subHP(-120);
+                hero.subHP(-hp);
             }
-            notifyObserver(wizard);
+            notifyObserver(hero);
         }
     }
 }

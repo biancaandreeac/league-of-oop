@@ -1,6 +1,10 @@
 package heroes.abilities;
 
-import heroes.*;
+import heroes.Hero;
+import heroes.Rogue;
+import heroes.Knight;
+import heroes.Wizard;
+import heroes.Pyromancer;
 import map.CellType;
 
 public class Deflect extends Ability {
@@ -52,7 +56,7 @@ public class Deflect extends Ability {
     @Override
     public final float applyAbility(final Hero wizard, final float raceAmplifier) {
         float amplifier;
-        float maxPercent = 70;
+        final float maxPercent = 70;
         amplifier = Math.min(maxPercent, percent + wizard.getLvl() * percentPerLvl);
         amplifier *= raceAmplifier;
 
@@ -60,7 +64,7 @@ public class Deflect extends Ability {
             amplifier *= landAmplifier;
         }
 
-        return Math.round(damage * (amplifier - 0.000001f));
+        return Math.round(damage * amplifier);
     }
 
     /**

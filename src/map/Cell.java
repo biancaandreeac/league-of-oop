@@ -18,8 +18,7 @@ public class Cell {
     }
 
     public final void leave(final Hero hero) {
-        if (heroesHere.contains(hero))
-            heroesHere.remove(hero);
+        heroesHere.remove(hero);
     }
 
     public final CellType getType() {

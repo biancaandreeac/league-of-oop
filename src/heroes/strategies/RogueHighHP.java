@@ -5,30 +5,38 @@ import heroes.Hero;
 public class RogueHighHP implements HeroStrategy {
 
     @Override
-    public void chooseStrategy(Hero hero) {
+    public final void chooseStrategy(final Hero hero) {
         int maxHp = hero.getHpMax() + hero.getLvl() * hero.getHPlvl();
-        if (maxHp / 7 < hero.getHp() && hero.getHp() < maxHp / 5) {
+        final int maxLimit = 5;
+        final int minLimit = 7;
+        if (maxHp / minLimit < hero.getHp() && hero.getHp() < maxHp / maxLimit) {
             highHP(hero);
-        } else if (hero.getHp() < maxHp / 7) {
+        } else if (hero.getHp() < maxHp / minLimit) {
             lowHP(hero);
         }
     }
 
     /**
-     * dacă (1/7 * MAX_LEVEL_HP) < CURRENT_HP < (1/5 * MAX_LEVEL_HP)
-     * el va renunța la 1/7 din HP-ul curent și va crește coeficienții cu 40%
+     * if his current hp is between 1/7 and 1/5 of his max hp,
+     * he gives up on 1/7 of his current hp and adds 40% to his modifiers.
+     * @param hero - who applies this strategy.
      */
-    private void highHP(Hero hero) {
-        hero.subHP(hero.getHp() / 7);
-        hero.angelModifier += 0.4f;
+    private void highHP(final Hero hero) {
+        final int hp = 7;
+        final float modifier = 0.4f;
+        hero.subHP(hero.getHp() / hp);
+        hero.angelModifier += modifier;
     }
 
     /**
-     * dacă CURRENT_HP < (1/7 * MAX_LEVEL_HP),
-     * el va renunța la 10% din coeficienți și va primi 1/2 din HP-ul curent
+     * if his current hp is smaller than 1/7 of his max hp,
+     * he gets an extra of 1/2 of his current hp and decreases 10% to his modifiers.
+     * @param hero - who applies this strategy.
      */
-    private void lowHP(Hero hero) {
-        hero.angelModifier -= 0.1f;
-        hero.subHP(-hero.getHp()/2);
+    private void lowHP(final Hero hero) {
+        final int hp = 2;
+        final float modifier = 0.1f;
+        hero.angelModifier -= modifier;
+        hero.subHP(-hero.getHp() / hp);
     }
 }

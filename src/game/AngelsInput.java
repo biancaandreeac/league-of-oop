@@ -17,7 +17,7 @@ class AngelsInput {
     }
 
     void addAngel(final String name, final int x, final int y) {
-        noOfAngels ++;
+        noOfAngels++;
         angels.add(AngelFactory.getAngelByType(name));
         coordinates.add(x);
         coordinates.add(y);
@@ -27,15 +27,15 @@ class AngelsInput {
         return noOfAngels;
     }
 
-    Angel getAngel(int index) {
+    Angel getAngel(final int index) {
         return angels.get(index);
     }
 
-    int getX(int index) {
+    int getX(final int index) {
         return coordinates.get(index * 2);
     }
 
-    int getY(int index) {
+    int getY(final int index) {
         return coordinates.get(index * 2 + 1);
     }
 

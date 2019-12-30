@@ -8,12 +8,12 @@ import heroes.Wizard;
 import java.io.IOException;
 
 public class TheDoomer extends Angel {
-    TheDoomer(AngelType type) {
+    TheDoomer(final AngelType type) {
         super(type);
     }
 
     @Override
-    public void visit(Knight knight) throws IOException {
+    public final void visit(final Knight knight) throws IOException {
         if (!knight.isDead()) {
             knight.subHP(knight.getHp());
             notifyObserver(knight);
@@ -21,7 +21,7 @@ public class TheDoomer extends Angel {
     }
 
     @Override
-    public void visit(Pyromancer pyromancer) throws IOException {
+    public final void visit(final Pyromancer pyromancer) throws IOException {
         if (!pyromancer.isDead()) {
             pyromancer.subHP(pyromancer.getHp());
             notifyObserver(pyromancer);
@@ -29,7 +29,7 @@ public class TheDoomer extends Angel {
     }
 
     @Override
-    public void visit(Rogue rogue) throws IOException {
+    public final void visit(final Rogue rogue) throws IOException {
         if (!rogue.isDead()) {
             rogue.subHP(rogue.getHp());
             notifyObserver(rogue);
@@ -37,7 +37,7 @@ public class TheDoomer extends Angel {
     }
 
     @Override
-    public void visit(Wizard wizard) throws IOException {
+    public final void visit(final Wizard wizard) throws IOException {
         if (!wizard.isDead()) {
             wizard.subHP(wizard.getHp());
             notifyObserver(wizard);

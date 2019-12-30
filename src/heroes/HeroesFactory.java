@@ -7,6 +7,9 @@ import java.util.Arrays;
 
 public final class HeroesFactory {
 
+    private HeroesFactory() {
+    }
+
     private static class HitPoints {
         static final int HP_PYROMANCER = 500;
         static final int HP_KNIGHT     = 900;

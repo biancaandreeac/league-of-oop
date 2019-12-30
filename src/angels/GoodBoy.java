@@ -1,5 +1,6 @@
 package angels;
 
+import heroes.Hero;
 import heroes.Knight;
 import heroes.Pyromancer;
 import heroes.Rogue;
@@ -7,45 +8,45 @@ import heroes.Wizard;
 
 import java.io.IOException;
 
-public class GoodBoy extends Angel{
+public class GoodBoy extends Angel {
 
-    GoodBoy(AngelType type) {
+    GoodBoy(final AngelType type) {
         super(type);
     }
 
     @Override
-    public void visit(Knight knight) throws IOException {
-        if (!knight.isDead()) {
-            knight.angelModifier += 0.4f;
-            knight.subHP(-20);
-            notifyObserver(knight);
-        }
+    public final void visit(final Knight knight) throws IOException {
+        final float modifier = 0.4f;
+        final int hp = -20;
+        help(knight, modifier, hp);
     }
 
     @Override
-    public void visit(Pyromancer pyromancer) throws IOException {
-        if (!pyromancer.isDead()) {
-            pyromancer.angelModifier += 0.5f;
-            pyromancer.subHP(-30);
-            notifyObserver(pyromancer);
-        }
+    public final void visit(final Pyromancer pyromancer) throws IOException {
+        final float modifier = 0.5f;
+        final int hp = -30;
+        help(pyromancer, modifier, hp);
     }
 
     @Override
-    public void visit(Rogue rogue) throws IOException {
-        if (!rogue.isDead()) {
-            rogue.angelModifier += 0.4f;
-            rogue.subHP(-40);
-            notifyObserver(rogue);
-        }
+    public final void visit(final Rogue rogue) throws IOException {
+        final float modifier = 0.4f;
+        final int hp = -40;
+        help(rogue, modifier, hp);
     }
 
     @Override
-    public void visit(Wizard wizard) throws IOException {
-        if (!wizard.isDead()) {
-            wizard.angelModifier += 0.3f;
-            wizard.subHP(-50);
-            notifyObserver(wizard);
+    public final void visit(final Wizard wizard) throws IOException {
+        final float modifier = 0.3f;
+        final int hp = -50;
+        help(wizard, modifier, hp);
+    }
+
+    private void help(final Hero hero, final float modifier, final int hp) throws IOException {
+        if (!hero.isDead()) {
+            hero.angelModifier += modifier;
+            hero.subHP(hp);
+            notifyObserver(hero);
         }
     }
 }

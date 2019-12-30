@@ -1,4 +1,4 @@
-package theGreatMagician;
+package admin;
 
 import angels.Angel;
 import angels.AngelType;
@@ -10,7 +10,7 @@ import java.io.BufferedWriter;
 public class AngelsObserver implements Observer {
     private BufferedWriter bw;
 
-    public AngelsObserver(BufferedWriter bw) {
+    public AngelsObserver(final BufferedWriter bw) {
         this.bw = bw;
     }
 
@@ -19,10 +19,10 @@ public class AngelsObserver implements Observer {
      * @param angel - the angel that was placed on the map.
      */
     @Override
-    public void update(Object angel){
+    public void update(final Object angel) {
         try {
-            bw.write("Angel " + ((Angel) angel).getType() + " was spawned at " +
-                    ((Angel) angel).getX() + ' ' + ((Angel) angel).getY());
+            bw.write("Angel " + ((Angel) angel).getType() + " was spawned at "
+                    + ((Angel) angel).getX() + ' ' + ((Angel) angel).getY());
             bw.newLine();
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,25 +35,25 @@ public class AngelsObserver implements Observer {
      * @param hero - the hero.
      */
     @Override
-    public void update(Object angel, Object hero){
+    public void update(final Object angel, final Object hero) {
         try {
             if (((Angel) angel).isGood()) {
-                bw.write(((Angel) angel).getType() + " helped " + ((Hero) hero).getType() +
-                        ' ' + ((Hero) hero).getID());
+                bw.write(((Angel) angel).getType() + " helped " + ((Hero) hero).getType()
+                        + ' ' + ((Hero) hero).getID());
                 bw.newLine();
                 if (!((Hero) hero).isDead() && ((Angel) angel).getType() == AngelType.Spawner) {
-                    bw.write("Player " + ((Hero) hero).getType() + ' ' + ((Hero) hero).getID() +
-                            " was brought to life by an angel");
+                    bw.write("Player " + ((Hero) hero).getType() + ' ' + ((Hero) hero).getID()
+                            + " was brought to life by an angel");
                     bw.newLine();
                 }
 
             } else {
-                bw.write(((Angel) angel).getType() + " hit " + ((Hero) hero).getType() +
-                        ' ' + ((Hero) hero).getID());
+                bw.write(((Angel) angel).getType() + " hit " + ((Hero) hero).getType() + ' '
+                        + ((Hero) hero).getID());
                 bw.newLine();
                 if (((Hero) hero).isDead()) {
-                    bw.write("Player " + ((Hero) hero).getType() + ' ' + ((Hero) hero).getID() +
-                            " was killed by an angel");
+                    bw.write("Player " + ((Hero) hero).getType() + ' ' + ((Hero) hero).getID()
+                            + " was killed by an angel");
                     bw.newLine();
                 }
             }

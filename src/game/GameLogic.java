@@ -1,7 +1,7 @@
 package game;
 
-import theGreatMagician.AngelsObserver;
-import theGreatMagician.HeroesObserver;
+import admin.AngelsObserver;
+import admin.HeroesObserver;
 import angels.Angel;
 
 import java.io.BufferedWriter;
@@ -15,7 +15,7 @@ public class GameLogic {
         this.input = input;
     }
 
-    public final void play(String outputFileName) {
+    public final void play(final String outputFileName) {
         try {
             FileWriter fw = new FileWriter(outputFileName);
 
@@ -39,7 +39,7 @@ public class GameLogic {
         }
     }
 
-    private void registerHeroObservers(BufferedWriter bw) {
+    private void registerHeroObservers(final BufferedWriter bw) {
         for (int i = 0; i < input.getHeroes().size(); ++i) {
             input.getHeroes().get(i).register(new HeroesObserver(bw));
         }
@@ -102,7 +102,7 @@ public class GameLogic {
         }
     }
 
-    private void angelsTurn(int roundNo, BufferedWriter bw) throws IOException {
+    private void angelsTurn(final int roundNo, final BufferedWriter bw) throws IOException {
         AngelsInput angelsInput = input.getAngels().get(roundNo);
         if (angelsInput != null) {
             for (int i = 0; i < angelsInput.getNoOfAngels(); ++i) {

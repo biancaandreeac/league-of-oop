@@ -1,6 +1,10 @@
 package heroes.abilities;
 
-import heroes.*;
+import heroes.Hero;
+import heroes.Rogue;
+import heroes.Knight;
+import heroes.Wizard;
+import heroes.Pyromancer;
 
 import map.CellType;
 
@@ -53,7 +57,7 @@ public class Slam extends Ability {
     @Override
     public final float applyAbility(final Hero knight, final float raceAmplifier) {
         damage = baseDamage(knight);
-        damage *= raceAmplifier - 0.000001f;
+        damage *= raceAmplifier;
         return Math.round(damage);
     }
 }

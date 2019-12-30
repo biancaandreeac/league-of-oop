@@ -1,7 +1,10 @@
 package angels;
 
 public final class AngelFactory {
-    public static Angel getAngelByType(String type) {
+    private AngelFactory() {
+    }
+
+    public static Angel getAngelByType(final String type) {
         if (type.equals("DamageAngel")) {
             return new DamageAngel(AngelType.DamageAngel);
         }
